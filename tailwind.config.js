@@ -12,6 +12,8 @@ module.exports = {
       fontFamily: {
         'neue-haas-text': ['var(--font-neue-haas-text)', ...defaultTheme.fontFamily.sans],
         'neue-haas-display': ['var(--font-neue-haas-display)', ...defaultTheme.fontFamily.sans],
+        heading: ['Clash Display', 'sans-serif'],
+      body: ['Satoshi', 'sans-serif'],
       },
       colors: {
         'cream-50': 'var(--color-cream-50)',
