@@ -5,6 +5,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
+gsap.registerPlugin(ScrollTrigger);
+
 // Layout Components
 import Loader from '@/components/layout/Loader';
 import Navbar from '@/components/layout/Navbar';
@@ -32,11 +34,7 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (!loading && typeof window !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
-    }
-  }, [loading]);
+  
 
   useGSAP(() => {
     if (loading) return;
@@ -60,8 +58,9 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
+     
       <main className="min-h-screen">
+         <Navbar />
         <Hero />
         <StatsSection />
         <About />

@@ -1,5 +1,7 @@
+
+
+'use client';
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
 
 const MouseTrail = () => {
   const trailRef = useRef(null);

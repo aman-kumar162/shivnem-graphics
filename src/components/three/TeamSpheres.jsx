@@ -11,7 +11,7 @@ export function TeamSpheres() {
     '#F472B6', // pink
     '#34D399', // emerald
     '#FBBF24', // amber
-    '#60A5FA'  // blue
+    '#FF2D95'  // brand magenta (replaced blue)
   ];
 
   useFrame((state) => {

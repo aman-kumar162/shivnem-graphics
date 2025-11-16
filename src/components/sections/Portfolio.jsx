@@ -1,14 +1,11 @@
-import { useState, useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import { Scene } from '../three/Scene';
-import { PortfolioGallery } from '../three/PortfolioGallery';
-import { SectionContainer } from '../shared/SectionContainer';
-import { useTheme } from '../../context/ThemeContext';
+'use client';
+import React, { useState } from 'react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const titleRef = useScrollAnimation();
+  const subtitleRef = useScrollAnimation();
 
   const filters = [
     { id: 'all', label: 'All Projects' },
@@ -73,98 +70,63 @@ const Portfolio = () => {
     ? portfolioItems
     : portfolioItems.filter(item => item.category === activeFilter);
 
-  useGSAP(() => {
-    // Animate portfolio items when filter changes
-    const tl = gsap.timeline();
-
-    tl.from('.portfolio-item', {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power3.out'
-    });
-
-    // Setup scroll animations
-    ScrollTrigger.batch('.portfolio-item', {
-      onEnter: batch => gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: 'power3.out'
-      }),
-      once: true
-    });
-  }, [activeFilter]);
-
   return (
-    <section id="portfolio" className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-neue-haas-display font-bold mb-4 bg-gradient-to-r from-teal-500 to-teal-700 bg-clip-text text-transparent">
+    <section id="portfolio" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28 bg-white" style={{ background: '#ffffff' }}>
+      {/* Solid white background with subtle decorative elements removed */}
+      <div className="absolute inset-0 opacity-0 -z-10" />
+      <div className="absolute top-1/2 right-0 w-96 h-96 opacity-0 -z-10" />
+
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20 scroll-animate" ref={titleRef}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: '#0f172a' }}>
             Our Portfolio
           </h2>
-          <p className="text-lg font-neue-haas-text text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Showcasing our creative excellence and quality work
+          <p className="text-sm sm:text-base lg:text-lg max-w-2xl mx-auto scroll-animate" ref={subtitleRef} style={{ color: 'var(--text-on-light-muted)' }}>
+            Showcasing our creative excellence and quality work.
           </p>
         </div>
-        
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12 sm:mb-16 lg:mb-20 max-w-7xl mx-auto">
           {filters.map(filter => (
             <button
               key={filter.id}
-              className={`px-6 py-2 rounded-full text-sm font-neue-haas-text transition-all duration-300 
-                ${activeFilter === filter.id 
-                  ? 'bg-teal-500 text-white shadow-lg' 
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}
+              className={`px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-body transition-all duration-300 ${
+                activeFilter === filter.id
+                  ? 'bg-[#2196F3] text-white shadow-lg border border-[#2196F3]'
+                  : 'bg-[#E3F2FD] border border-[#BBDEFB] text-[#0b66d6] hover:border-[#2196F3] hover:bg-[#BBDEFB]'
+              }`}
               onClick={() => setActiveFilter(filter.id)}
             >
               {filter.label}
             </button>
           ))}
+
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
           {filteredItems.map((item, index) => (
             <div 
               key={index} 
-              className="portfolio-item bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden group"
-              data-category={item.category}
+              className="group relative overflow-hidden rounded-2xl h-full transition-all duration-300 bg-white border border-[#BBDEFB] hover:border-[#2196F3] card-lift hover:shadow-lg"
             >
-              <div className="relative aspect-video bg-gradient-to-br from-teal-500/10 to-teal-700/10">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-6xl transform transition-transform duration-300 group-hover:scale-110">
-                    {item.image}
-                  </span>
-                </div>
-                <div className="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="p-6 h-full flex flex-col justify-between text-white">
-                    <div>
-                      <h4 className="text-xl font-neue-haas-display font-bold mb-2">{item.title}</h4>
-                      <p className="text-sm font-neue-haas-text mb-4">{item.description}</p>
-                      <ul className="space-y-1">
-                        {item.services.map((service, idx) => (
-                          <li key={idx} className="text-sm font-neue-haas-text text-gray-300">• {service}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <button 
-                      className="mt-4 px-6 py-2 bg-teal-500 text-white rounded-full font-neue-haas-text hover:bg-teal-600 transition-colors duration-300"
-                      onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      Request Similar
-                    </button>
-                  </div>
-                </div>
+              <div className="relative h-48 sm:h-64 bg-[#E3F2FD] flex items-center justify-center overflow-hidden">
+                <span className="text-6xl sm:text-8xl">{item.image}</span>
               </div>
-              <div className="p-6">
-                <h4 className="text-xl font-neue-haas-display font-bold mb-2 dark:text-white">
-                  {item.client}
-                </h4>
-                <p className="text-gray-600 dark:text-gray-300 font-neue-haas-text">
-                  {item.description}
-                </p>
+
+              <div className="p-4 sm:p-8 relative z-10">
+                <p className="text-xs sm:text-sm text-[#2196F3] mb-2 font-semibold uppercase tracking-wider">{item.client}</p>
+                <h3 className="text-lg sm:text-2xl font-bold mb-3 sm:mb-4 group-hover:text-[#2196F3] transition-colors duration-300" style={{ color: '#0f172a' }}>
+                  {item.title}
+                </h3>
+                <p className="text-xs sm:text-base mb-4 sm:mb-6" style={{ color: '#475569' }}>{item.description}</p>
+
+                <div className="flex flex-wrap gap-2">
+                  {item.services.map((service, i) => (
+                    <span key={i} className="px-2 sm:px-3 py-1 bg-[#E3F2FD] border border-[#BBDEFB] rounded-full text-xs text-[#2196F3] hover:bg-[#2196F3] hover:text-white transition-all duration-300">
+                      {service}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}

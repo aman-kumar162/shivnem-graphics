@@ -10,12 +10,17 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        heading: ['Clash Display', 'sans-serif'],
+        body: ['Satoshi', 'sans-serif'],
         'neue-haas-text': ['var(--font-neue-haas-text)', ...defaultTheme.fontFamily.sans],
         'neue-haas-display': ['var(--font-neue-haas-display)', ...defaultTheme.fontFamily.sans],
-        heading: ['Clash Display', 'sans-serif'],
-      body: ['Satoshi', 'sans-serif'],
+        sans: ['FKGroteskNeue', 'Geist', 'Inter', ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        primary: '#0F172A',
+        accent: '#4F46E5',
+        secondary: '#9333EA',
+        light: '#F9FAFB',
         'cream-50': 'var(--color-cream-50)',
         'cream-100': 'var(--color-cream-100)',
         'gray-200': 'var(--color-gray-200)',
@@ -33,9 +38,6 @@ module.exports = {
       },
       fontSize: {
         ...defaultTheme.fontSize,
-      },
-      fontFamily: {
-        sans: ['FKGroteskNeue', 'Geist', 'Inter', ...defaultTheme.fontFamily.sans],
       },
       container: {
         center: true,

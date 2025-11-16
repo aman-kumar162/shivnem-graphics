@@ -1,18 +1,9 @@
-'use client';
-
-import { useEffect } from 'react';
 import { ThemeProvider } from '../context/ThemeContext';
 import { metadata } from './metadata';
 import MouseTrail from '../components/shared/MouseTrail';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
+import Footer from '../components/layout/Footer';
 import "./globals.css";
 import "../styles/effects.css";
-
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 export default function RootLayout({ children }) {
   return (
@@ -21,7 +12,8 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <div className="relative">
             <MouseTrail />
-            {children}
+            <main className="edge-to-edge">{children}</main>
+            <Footer />
           </div>
         </ThemeProvider>
         <div id="portal-root" />

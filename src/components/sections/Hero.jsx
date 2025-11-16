@@ -1,131 +1,97 @@
 'use client';
-
-import React, { useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import React, { useEffect } from 'react';
 import Button from '../shared/Button';
+import gsap from 'gsap';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Hero = () => {
-  const heroRef = useRef(null);
-
   useEffect(() => {
-    if (!heroRef.current) return;
+    if (typeof window === 'undefined') return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: {
-          ease: 'power3.out',
-          duration: 0.8
-        }
-      });
-
-      tl.from('.hero-content > *', {
-        y: 50,
-        opacity: 0,
-        stagger: 0.2
-      })
-      .from('.hero-stats > *', {
+      const tl = gsap.timeline();
+      
+      tl.from('.hero-title', {
         y: 30,
         opacity: 0,
-        stagger: 0.1
-      }, '-=0.5');
-
-    }, heroRef);
+        duration: 0.8,
+        ease: 'power3.out'
+      })
+      .from('.hero-subtitle', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, '-=0.4')
+      .from('.hero-description', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, '-=0.4')
+      .from('.hero-buttons', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, '-=0.4');
+    });
 
     return () => ctx.revert();
   }, []);
 
+
   return (
-    <section ref={heroRef} className="min-h-screen pt-32 pb-16 bg-gradient-to-b from-teal-50/50 via-cream-50 to-white relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(45,212,191,0.15)_0%,transparent_40%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(45,212,191,0.1)_0%,transparent_30%)]"></div>
+    <section id="home" className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: 'var(--section-hero-bg)' }}>
+      <div className="absolute inset-0 -z-10" style={{ backgroundColor: 'var(--section-hero-bg)' }} />
 
-      <div className="container relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8 hero-content">
-          <span className="inline-block px-4 py-2 bg-teal-50 text-teal-600 rounded-full font-medium text-sm shadow-sm">
-            ★ Premium Printing Solutions
-          </span>
+      {/* Subtle decorative accents */}
+      <div className="absolute top-10 left-10 w-20 h-20 rounded-full opacity-10" style={{ backgroundColor: 'var(--brand-blue)' }}></div>
+      <div className="absolute bottom-20 right-10 w-32 h-32 rounded-full opacity-10" style={{ backgroundColor: 'var(--brand-orange)' }}></div>
+      <div className="absolute top-1/2 right-1/4 w-24 h-24 rounded-full opacity-10" style={{ backgroundColor: 'var(--brand-purple)' }}></div>
 
-          <div className="space-y-4">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Shivnem Graphics
-            </h1>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
-              Transform Your Ideas<br />
-              Into Stunning<br />
-              Print Reality
-            </h2>
-          </div>
+      <div className="relative z-10 text-center max-w-4xl w-full">
+        <h1 className="hero-title text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ color: 'var(--text-on-light)' }}>
+          Shivnem Graphics
+        </h1>
+        
+        <h2 className="hero-subtitle text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mt-4 sm:mt-6" style={{
+          color: 'var(--brand-blue)',
+        }}>
+          Transform Your Ideas<br className="hidden sm:block" />
+          Into Stunning<br />
+          Print Reality
+        </h2>
 
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Your complete printing partner in Ambala Cantt, delivering premium quality with creative excellence for all your business and personal needs
-          </p>
+        <p className="hero-description text-sm sm:text-base lg:text-lg leading-relaxed my-6 sm:my-8 max-w-2xl mx-auto" style={{ color: 'var(--text-on-light-muted)' }}>
+          Your complete printing partner in Ambala Cantt, delivering premium quality with creative excellence for all your business and personal needs.
+        </p>
 
-          <div className="flex flex-wrap justify-center gap-6">
-            <div className="flex items-center text-gray-700">
-              <svg className="w-5 h-5 text-teal-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Premium Quality
-            </div>
-            <div className="flex items-center text-gray-700">
-              <svg className="w-5 h-5 text-teal-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Fast Turnaround
-            </div>
-            <div className="flex items-center text-gray-700">
-              <svg className="w-5 h-5 text-teal-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Custom Solutions
-            </div>
-            <div className="flex items-center text-gray-700">
-              <svg className="w-5 h-5 text-teal-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Competitive Pricing
-            </div>
-          </div>
-
-          <p className="text-gray-600 font-medium">
-            📍 Ambala Cantt, Haryana
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button 
-              variant="primary"
-              onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-            >
-              Get Started Now
-            </Button>
-            <Button 
-              variant="outline"
-              onClick={() => document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' })}
-            >
-              View Portfolio
-            </Button>
-          </div>
+        <div className="hero-buttons flex flex-col sm:flex-row justify-center gap-3 sm:gap-6">
+          <Button 
+            variant="primary"
+            className="w-full sm:w-auto px-8 py-3 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold"
+            style={{ backgroundColor: 'var(--brand-orange)' }}
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Get Started Now
+          </Button>
+          <Button 
+            variant="outline"
+            className="w-full sm:w-auto px-8 py-3 border-2 font-semibold hover:scale-105 transition-all duration-300"
+            style={{ borderColor: 'var(--brand-blue)', color: 'var(--brand-blue)', backgroundColor: 'rgba(33, 150, 243, 0.05)' }}
+            onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            View Portfolio
+          </Button>
         </div>
+      </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-16 hero-stats">
-          <div className="p-6 bg-white/80 rounded-xl shadow-sm backdrop-blur-sm">
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">5000+</h3>
-            <p className="text-gray-600">Projects Completed</p>
-          </div>
-          <div className="p-6 bg-white/80 rounded-xl shadow-sm backdrop-blur-sm">
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">15+</h3>
-            <p className="text-gray-600">Years Experience</p>
-          </div>
-          <div className="p-6 bg-white/80 rounded-xl shadow-sm backdrop-blur-sm">
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">800+</h3>
-            <p className="text-gray-600">Happy Clients</p>
-          </div>
-          <div className="p-6 bg-white/80 rounded-xl shadow-sm backdrop-blur-sm">
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">98%</h3>
-            <p className="text-gray-600">Success Rate</p>
-          </div>
-        </div>
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float z-10">
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ color: 'var(--brand-purple)' }}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
       </div>
     </section>
   );

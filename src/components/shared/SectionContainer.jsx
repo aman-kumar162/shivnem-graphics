@@ -39,8 +39,8 @@ export function SectionContainer({
           </p>
         </div>
         
-        <div className="backdrop-blur-sm bg-white/30 dark:bg-gray-900/30 
-          rounded-2xl p-8 shadow-2xl border border-white/10"
+        <div className="backdrop-blur-sm bg-white/5 dark:bg-gray-900/30 
+          rounded-2xl p-8 shadow-2xl border border-white/5"
         >
           {children}
         </div>

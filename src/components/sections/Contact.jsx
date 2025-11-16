@@ -1,11 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+'use client';
+import React, { useState, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import { Scene } from '../three/Scene';
-import { ContactParticles } from '../three/ContactParticles';
-import { SectionContainer } from '../shared/SectionContainer';
-import { useTheme } from '../../context/ThemeContext';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,237 +12,199 @@ const Contact = () => {
     message: ''
   });
   const [formStatus, setFormStatus] = useState({ submitted: false, success: false, message: '' });
-
-  useEffect(() => {
-    // Register GSAP plugins on client-side only
-    if (typeof window !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
-    }
-  }, []);
-
-  useGSAP(() => {
-    // Only run animations on client-side
-    if (typeof window === 'undefined') return;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.contact-section',
-        start: 'top center',
-        once: true
-      }
-    });
-
-    tl.fromTo('.contact-heading', 
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
-    )
-    .fromTo('.contact-form',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
-      '-=0.4'
-    );
-  }, []);
-
-  const services = [
-    { value: 'general', label: 'General Inquiry' },
-    { value: 'business-cards', label: 'Business Cards & Stationery' },
-    { value: 'brochures', label: 'Brochures & Catalogs' },
-    { value: 'large-format', label: 'Large Format Printing' },
-    { value: 'packaging', label: 'Packaging Solutions' },
-    { value: 'signage', label: 'Signage & Displays' },
-    { value: 'corporate', label: 'Corporate Branding' }
-  ];
-
-  const contactInfo = {
-    address: {
-      line1: 'Office No. 2, Mangalyaan Society,',
-      line2: 'Vidya Niketan Marg, Mahatma Gandhi Rd,',
-      line3: 'Goregaon West, Mumbai - 400062',
-      country: 'India'
-    },
-    phones: [
-      { number: '+91-080-69752299', type: 'Office' },
-      { number: '+91-996-703-7158', type: 'WhatsApp' }
-    ],
-    email: 'print@shivamgraphics.com',
-    workingHours: {
-      weekdays: 'Monday - Friday: 9:30 AM - 6:30 PM',
-      saturday: 'Saturday: 10:00 AM - 4:00 PM',
-      sunday: 'Sunday: Closed'
-    }
-  };
-   
+  const containerRef = useRef(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormStatus({
-      submitted: true,
-      success: true,
-      message: 'Thank you for your message. We will get back to you shortly!'
-    });
-    // Here you would typically send the form data to your backend
+    setFormStatus({ submitted: true, success: true, message: 'Thank you! Your message has been sent.' });
+    setTimeout(() => {
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setFormStatus({ submitted: false, success: false, message: '' });
+    }, 5000);
   };
 
   useGSAP(() => {
-    // Contact section animations
-    const tl = gsap.timeline({
+    gsap.from(containerRef.current, {
       scrollTrigger: {
-        trigger: '#contact',
+        trigger: containerRef.current,
         start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none reverse'
-      }
+        toggleActions: 'play none none none'
+      },
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: 'power3.out'
     });
-
-    tl.from('.contact-info', {
-      opacity: 0,
-      x: -50,
-      duration: 1,
-      ease: 'power3.out'
-    })
-    .from('.contact-form', {
-      opacity: 0,
-      x: 50,
-      duration: 1,
-      ease: 'power3.out'
-    }, '-=0.8');
-  }, []);
+  }, { scope: containerRef });
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <Scene>
-          <ContactParticles />
-        </Scene>
-      </div>
-      <div className="container relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="section-title bg-gradient-to-r from-teal-500 to-teal-700 bg-clip-text text-transparent">Contact Us</h2>
-          <p className="section-subtitle dark:text-gray-400">Get in touch for premium printing solutions</p>
+    <section id="contact" className="w-full py-16 sm:py-20 lg:py-28 text-white" style={{ background: '#FF6B35' }}>
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-white">Contact Us</h2>
+          <p className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto">Get in touch for premium printing solutions and consultation</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="contact-info space-y-8">
-            <div className="info-block flex items-start space-x-4 p-6 bg-white/50 dark:bg-gray-800/50 rounded-xl shadow-lg">
-              <div className="info-icon text-4xl bg-teal-100 dark:bg-teal-900 p-3 rounded-full">📍</div>
-              <div className="info-text">
-                <h4 className="text-xl font-semibold mb-2 text-teal-600 dark:text-teal-400">Visit Us</h4>
-                <p className="text-gray-600 dark:text-gray-400">123 Print Street, Ambala Cantt<br />Haryana, India 133001</p>
+        <div className="contact-content grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 max-w-7xl mx-auto" ref={containerRef}>
+          {/* Contact Info Section */}
+          <div className="space-y-6 sm:space-y-8">
+            {/* Address */}
+            <div className="flex items-start gap-4 p-4 sm:p-6 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all border border-white/20" style={{ background: 'rgba(255,255,255,0.06)' }}>
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-white flex-shrink-0 text-lg sm:text-xl" style={{ background: 'rgba(255,255,255,0.12)' }}>
+                📍
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-1">Visit Us</h3>
+                <p className="text-sm sm:text-base text-white/90">Office No. 2, Mangalyaan Society, Vidya Niketan Marg, Goregaon West, Mumbai - 400062, India</p>
               </div>
             </div>
-            
-            <div className="info-block flex items-start space-x-4 p-6 bg-white/50 dark:bg-gray-800/50 rounded-xl shadow-lg">
-              <div className="info-icon text-4xl bg-teal-100 dark:bg-teal-900 p-3 rounded-full">📞</div>
-              <div className="info-text">
-                <h4 className="text-xl font-semibold mb-2 text-teal-600 dark:text-teal-400">Call Us</h4>
-                <p className="text-gray-600 dark:text-gray-400">+91 98765 43210<br />+91 12345 67890</p>
+
+            {/* Phone */}
+            <div className="flex items-start gap-4 p-4 sm:p-6 card-bg rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all border-accent border hover:border-teal-400/60">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center text-white flex-shrink-0 text-lg sm:text-xl">
+                📞
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-1">Call Us</h3>
+                <div className="text-sm sm:text-base text-gray-300 space-y-1">
+                  <div>Office: +91-080-69752299</div>
+                  <div>WhatsApp: +91-996-703-7158</div>
+                </div>
               </div>
             </div>
-            
-            <div className="info-block flex items-start space-x-4 p-6 bg-white/50 dark:bg-gray-800/50 rounded-xl shadow-lg">
-              <div className="info-icon text-4xl bg-teal-100 dark:bg-teal-900 p-3 rounded-full">✉️</div>
-              <div className="info-text">
-                <h4 className="text-xl font-semibold mb-2 text-teal-600 dark:text-teal-400">Email Us</h4>
-                <p className="text-gray-600 dark:text-gray-400">info@shivnemgraphics.com<br />sales@shivnemgraphics.com</p>
+
+            {/* Email */}
+            <div className="flex items-start gap-4 p-4 sm:p-6 card-bg rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all border-accent border hover:border-teal-400/60">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center text-white flex-shrink-0 text-lg sm:text-xl">
+                ✉️
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-1">Email</h3>
+                <p className="text-sm sm:text-base text-gray-300">print@shivamgraphics.com</p>
               </div>
             </div>
-            
-            <div className="info-block flex items-start space-x-4 p-6 bg-white/50 dark:bg-gray-800/50 rounded-xl shadow-lg">
-              <div className="info-icon text-4xl bg-teal-100 dark:bg-teal-900 p-3 rounded-full">⏰</div>
-              <div className="info-text">
-                <h4 className="text-xl font-semibold mb-2 text-teal-600 dark:text-teal-400">Business Hours</h4>
-                <p className="text-gray-600 dark:text-gray-400">Monday - Saturday: 9:00 AM - 7:00 PM<br />Sunday: Closed</p>
+
+            {/* Hours */}
+            <div className="flex items-start gap-4 p-4 sm:p-6 card-bg rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all border-accent border hover:border-teal-400/60">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center text-white flex-shrink-0 text-lg sm:text-xl">
+                ⏰
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-1">Hours</h3>
+                <div className="text-xs sm:text-sm text-gray-300 space-y-1">
+                  <div>Monday - Friday: 9:30 AM - 6:30 PM</div>
+                  <div>Saturday: 10:00 AM - 4:00 PM</div>
+                  <div>Sunday: Closed</div>
+                </div>
               </div>
             </div>
           </div>
-          
-          <div className="contact-form bg-white/50 dark:bg-gray-800/50 p-8 rounded-2xl shadow-2xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="form-group">
-                <label className="form-label" htmlFor="name">Name</label>
+
+          {/* Contact Form Section */}
+          <div className="card-bg p-6 sm:p-8 rounded-lg sm:rounded-xl shadow-lg border-accent border">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  Name *
+                </label>
                 <input
                   type="text"
-                  id="name"
                   name="name"
-                  className="form-control"
                   value={formData.name}
                   onChange={handleInputChange}
                   required
+                  placeholder="Your full name"
+                  className="w-full px-4 py-2 sm:py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-700/50 text-white text-sm sm:text-base placeholder-gray-400"
                 />
               </div>
-              
-              <div className="form-group">
-                <label className="form-label" htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="form-control"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="your@email.com"
+                    className="w-full px-4 py-2 sm:py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-700/50 text-white text-sm sm:text-base placeholder-gray-400"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="+91 XXXXX XXXXX"
+                    className="w-full px-4 py-2 sm:py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-700/50 text-white text-sm sm:text-base placeholder-gray-400"
+                  />
+                </div>
               </div>
-              
-              <div className="form-group">
-                <label className="form-label" htmlFor="phone">Phone</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  className="form-control"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              
-              <div className="form-group">
-                <label className="form-label" htmlFor="service">Service Required</label>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  Service Required *
+                </label>
                 <select
-                  id="service"
                   name="service"
-                  className="form-control"
                   value={formData.service}
                   onChange={handleInputChange}
                   required
+                  className="w-full px-4 py-2 sm:py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-700/50 text-white text-sm sm:text-base"
                 >
                   <option value="">Select a service</option>
-                  <option value="digital">Digital Printing</option>
-                  <option value="offset">Offset Printing</option>
-                  <option value="large">Large Format</option>
-                  <option value="design">Design Services</option>
+                  <option value="business-cards">Business Cards & Stationery</option>
+                  <option value="brochures">Brochures & Catalogs</option>
+                  <option value="large-format">Large Format Printing</option>
+                  <option value="packaging">Packaging Solutions</option>
+                  <option value="signage">Signage & Displays</option>
+                  <option value="corporate">Corporate Branding</option>
                   <option value="other">Other</option>
                 </select>
               </div>
-              
-              <div className="form-group">
-                <label className="form-label" htmlFor="message">Message</label>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  Message *
+                </label>
                 <textarea
-                  id="message"
                   name="message"
-                  className="form-control"
-                  rows="5"
                   value={formData.message}
                   onChange={handleInputChange}
                   required
+                  rows="5"
+                  placeholder="Tell us about your printing needs..."
+                  className="w-full px-4 py-2 sm:py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-700/50 text-white text-sm sm:text-base placeholder-gray-400"
                 ></textarea>
               </div>
-              
-              <button type="submit" className="w-full bg-teal-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition-colors duration-300">
+
+              <button
+                type="submit"
+                className="w-full py-3 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+              >
                 Send Message
               </button>
-              
+
               {formStatus.submitted && (
-                <div className={`p-4 rounded-lg ${formStatus.success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                <div
+                  className={`p-3 sm:p-4 rounded-lg text-sm sm:text-base ${
+                    formStatus.success
+                      ? 'bg-green-500/20 text-green-300 border border-green-500/50'
+                      : 'bg-red-500/20 text-red-300 border border-red-500/50'
+                  }`}
+                >
                   {formStatus.message}
                 </div>
               )}

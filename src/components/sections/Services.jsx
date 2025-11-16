@@ -1,219 +1,103 @@
 'use client';
-
+import React from 'react';
 import { useState } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-// Register ScrollTrigger
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-import { Scene } from '../three/Scene';
-import { ServiceIcons } from '../three/ServiceIcons';
-import { useTheme } from '../../context/ThemeContext';
-import FadeIn from '../shared/FadeIn';
-import ScrollReveal from '../shared/ScrollReveal';
-import ParallaxContainer from '../shared/ParallaxContainer';
-import FloatingGallery from '../shared/FloatingGallery';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Services = () => {
-  const [activeCategory, setActiveCategory] = useState('digital');
-  const { theme, isDark } = useTheme();
-  
-  const categories = [
-    { id: 'digital', label: 'Digital Printing' },
-    { id: 'offset', label: 'Offset Printing' },
-    { id: 'large', label: 'Large Format' },
-    { id: 'design', label: 'Design Services' }
+  const titleRef = useScrollAnimation();
+  const subtitleRef = useScrollAnimation();
+  const [hoveredService, setHoveredService] = useState(null);
+
+  const services = [
+    { name: 'Web Design', icon: '🎨', color: 'from-brand-2 to-brand-3' },
+    { name: 'Web Development', icon: '💻', color: 'from-brand-1 to-brand-2' },
+    { name: 'App Design', icon: '📱', color: 'from-color-teal to-brand-1' },
+    { name: 'Branding Design', icon: '✨', color: 'from-brand-2 to-color-gold' },
+    { name: '3D Modeling', icon: '🎭', color: 'from-brand-3 to-brand-2' },
+    { name: 'Digital Marketing', icon: '📊', color: 'from-color-teal to-brand-2' },
+    { name: 'Animation', icon: '🎬', color: 'from-brand-1 to-brand-3' },
+    { name: 'UI/UX', icon: '🎯', color: 'from-brand-2 to-color-gold' },
+    { name: 'Print Design', icon: '🖨️', color: 'from-color-sage to-brand-2' },
   ];
 
-  const services = {
-    digital: [
-      {
-        title: 'Business Cards',
-        description: 'Professional business cards with premium finish options',
-        price: 'Starting from ₹499',
-        features: ['Premium Paper Options', '24-Hour Turnaround', 'Custom Designs', 'Spot UV Available'],
-        icon: '💼',
-        id: 'business-cards',
-        image: 'https://images.unsplash.com/photo-1589041127168-9b1915731dc2?q=80&w=500&h=500&fit=crop'
-      },
-      {
-        title: 'Flyers & Brochures',
-        description: 'High-quality marketing materials that demand attention',
-        price: 'Starting from ₹999',
-        features: ['Multiple Size Options', 'Full Color Printing', 'Fast Delivery', 'Bulk Discounts'],
-        icon: '📄',
-        id: 'flyers-brochures',
-        image: 'https://images.unsplash.com/photo-1600469546186-c0d98657f1ae?q=80&w=500&h=500&fit=crop'
-      }
-      // Add more digital printing services...
-    ],
-    offset: [
-      {
-        title: 'Catalogs',
-        description: 'Professional product catalogs and magazines',
-        price: 'Starting from ₹2999',
-        features: ['High Volume Printing', 'Superior Quality', 'Custom Sizes', 'Premium Binding'],
-        icon: '📚',
-        id: 'catalogs',
-        image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=500&h=500&fit=crop'
-      },
-      {
-        title: 'Packaging',
-        description: 'Custom packaging solutions for your products',
-        price: 'Custom Quote',
-        features: ['Custom Dies', 'Multiple Materials', 'Proof Samples', 'Bulk Orders'],
-        icon: '📦'
-      }
-      // Add more offset printing services...
-    ],
-    large: [
-      {
-        title: 'Banners',
-        description: 'Eye-catching banners for indoor and outdoor use',
-        price: 'Starting from ₹1499',
-        features: ['Weather Resistant', 'Multiple Sizes', 'Premium Materials', 'Installation Available'],
-        icon: '🎯'
-      },
-      {
-        title: 'Vehicle Graphics',
-        description: 'Transform your vehicle into a moving billboard',
-        price: 'Custom Quote',
-        features: ['3M Materials', 'Professional Install', 'Custom Design', 'Warranty Available'],
-        icon: '🚗'
-      }
-      // Add more large format services...
-    ],
-    design: [
-      {
-        title: 'Logo Design',
-        description: 'Professional logo design and branding solutions',
-        price: 'Starting from ₹4999',
-        features: ['Multiple Concepts', 'Unlimited Revisions', 'Source Files', 'Brand Guidelines'],
-        icon: '✏️'
-      },
-      {
-        title: 'Marketing Design',
-        description: 'Complete marketing collateral design services',
-        price: 'Custom Quote',
-        features: ['Brand Consistency', 'Multi-Platform', 'Expert Design', 'Quick Turnaround'],
-        icon: '🎨'
-      }
-      // Add more design services...
-    ]
-  };
-
-  useGSAP(() => {
-    // Floating animation for icons
-    gsap.to('.service-icon', {
-      y: 10,
-      duration: 2,
-      ease: 'power1.inOut',
-      yoyo: true,
-      repeat: -1,
-      stagger: {
-        each: 0.2,
-        from: 'random'
-      }
-    });
-  }, [activeCategory]);
-
   return (
-    <section id="services" className="py-20 relative min-h-screen overflow-hidden bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <ParallaxContainer className="services-background absolute inset-0">
-        <Scene>
-          <ServiceIcons position={[0, 0, -5]} />
-        </Scene>
-      </ParallaxContainer>
-      <div className="container relative z-10">
-        <FadeIn delay={0.2} className="text-center mb-16">
-          <h2 className="font-display font-bold text-display-md md:text-display-lg bg-gradient-to-r from-teal-500 to-teal-700 bg-clip-text text-transparent
-            [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)] transform hover:scale-105 transition-transform duration-300">
+    <section id="services" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ background: 'linear-gradient(180deg, #ffffff 0%, rgba(33, 150, 243, 0.05) 100%)' }}>
+      {/* Subtle blue gradient background */}
+      <div className="absolute inset-0 opacity-5 blur-3xl -z-10" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-brand-2 to-brand-3 opacity-5 blur-3xl -z-10" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-brand-1 to-brand-2 opacity-5 blur-3xl -z-10" />
+
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl">
+        {/* Header */}
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20 scroll-animate" ref={titleRef}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{
+            background: 'linear-gradient(135deg, #2196F3 0%, #6E3CF0 30%, #FF2D95 65%, #FF6A4B 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
+          }}>
             Our Services
           </h2>
-          <p className="font-sans text-body-lg md:text-heading-sm dark:text-gray-400 opacity-90 max-w-2xl mx-auto leading-relaxed">
-            Comprehensive printing and design solutions for all your needs
+          <p className="max-w-2xl mx-auto text-sm sm:text-base lg:text-lg scroll-animate" ref={subtitleRef} style={{ color: 'var(--text-on-light-muted)' }}>
+            A wide range of creative and technical services to bring your ideas to life.
           </p>
-        </FadeIn>
-        
-        <div className="services-categories backdrop-blur-sm bg-white/30 dark:bg-gray-900/30 rounded-2xl p-8 shadow-2xl">
-          <div className="category-tabs flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category, index) => (
-              <FadeIn key={category.id} delay={0.1 * index} direction="down">
-                <button
-                  className={`category-tab px-6 py-3 rounded-full font-display font-medium text-body-md transition-all duration-300
-                    ${activeCategory === category.id 
-                      ? 'bg-teal-500 text-white shadow-lg scale-105' 
-                      : 'bg-white/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-gray-700'}`}
-                  onClick={() => setActiveCategory(category.id)}
-                >
-                  {category.label}
-                </button>
-              </FadeIn>
-            ))}
-          </div>
-          
-          <div className="services-content mt-8">
-            <FloatingGallery 
-              items={services[activeCategory].map(service => ({
-                title: service.title,
-                price: service.price,
-                image: service.image || `/images/services/${service.id}.jpg` // You'll need to add images
-              }))}
-            />
-            <ScrollReveal selector=".service-card" className="services-grid grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
-              {services[activeCategory].map((service, index) => (
-                <div 
-                  key={index} 
-                  className="service-card group bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg 
-                    transform transition-all duration-300 hover:scale-105 hover:shadow-2xl
-                    border border-gray-100 dark:border-gray-700"
-                >
-                  <div className="service-header flex items-center gap-4 mb-4">
-                    <div className="service-icon text-4xl bg-teal-100 dark:bg-teal-900/50 p-4 rounded-lg
-                      transform transition-transform group-hover:scale-110 group-hover:rotate-6">
-                      {service.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-display text-heading-sm font-bold text-gray-900 dark:text-white mb-1">
-                        {service.title}
-                      </h3>
-                      <div className="service-price font-display text-body-md text-teal-600 dark:text-teal-400 font-medium">
-                        {service.price}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <p className="font-sans text-body-md text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                    {service.description}
-                  </p>
-                  
-                  <ul className="service-features space-y-2 mb-6">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2 font-sans text-body-sm text-gray-700 dark:text-gray-300">
-                        <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <button 
-                    className="w-full py-3 px-6 bg-gradient-to-r from-teal-500 to-teal-600 
-                      text-white rounded-lg font-display text-body-md font-medium shadow-md hover:shadow-xl 
-                      transform transition-all duration-300 hover:-translate-y-1
-                      focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
-                    onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-                  >
-                    Get Quote
-                  </button>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {services.map((service, i) => (
+            <div
+              key={i}
+              onMouseEnter={() => setHoveredService(i)}
+              onMouseLeave={() => setHoveredService(null)}
+              className="group relative overflow-hidden rounded-2xl p-6 sm:p-8 h-full
+                         transition-all duration-300 ease-out
+                         border border-blue-200
+                         hover:border-blue-400
+                         card-lift card-glow
+                         bg-gradient-to-br from-white to-blue-50
+                         hover:shadow-lg"
+            >
+              {/* Animated gradient background overlay */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-15 transition-opacity duration-300 -z-10`}
+              />
+
+              <div className="relative z-10">
+                <div className="mb-4 text-4xl">
+                  {service.icon}
                 </div>
-              ))}
-            </ScrollReveal>
-          </div>
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 group-hover:text-brand-2 transition-colors duration-300" style={{ color: 'var(--text-on-light)' }}>
+                  {service.name}
+                </h3>
+                {/* Animated bottom line indicator */}
+                <div className="h-1 w-0 bg-gradient-to-r from-brand-2 to-brand-3 rounded-full group-hover:w-12 transition-all duration-500" />
+              </div>
+
+              {/* Background decoration */}
+              <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-gradient-to-tl from-brand-2 to-transparent opacity-0 group-hover:opacity-20 rounded-full blur-2xl transition-opacity duration-300" />
+            </div>
+          ))}
+        </div>
+
+        {/* Call-to-action */}
+        <div className="mt-12 sm:mt-16 lg:mt-20 text-center scroll-animate">
+          <p className="text-muted text-sm sm:text-base mb-6">
+            Interested in working together? Let's discuss your project.
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex items-center px-8 py-3 rounded-lg font-semibold
+                       bg-gradient-to-r from-brand-2 to-brand-3
+                       text-white transition-all duration-300
+                       hover:shadow-glow hover:scale-105
+                       border border-white/20"
+          >
+            Start Your Project
+            <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
         </div>
       </div>
     </section>

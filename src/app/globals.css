@@ -37,6 +37,62 @@
   .section-subtitle {
     @apply text-lg text-gray-600 mb-8;
   }
+
+  /* Section utilities: use section-specific color tokens */
+  .section {
+    @apply w-full relative overflow-hidden py-16 sm:py-20 lg:py-28;
+    background-color: var(--page-bg);
+  }
+
+  .section--light {
+    color: var(--text-on-light);
+    background-color: var(--page-bg);
+  }
+
+  .section--blue {
+    background-color: var(--section-about-bg);
+    color: var(--text-on-light);
+  }
+
+  .section--purple {
+    background-color: var(--section-services-bg);
+    color: var(--text-on-light);
+  }
+
+  .section--orange {
+    background-color: var(--section-products-bg);
+    color: var(--text-on-light);
+  }
+
+  .section--magenta {
+    background-color: var(--section-team-bg);
+    color: var(--text-on-light);
+  }
+
+  /* Card utilities: light cards on colored sections */
+  .card {
+    @apply rounded-2xl p-6 sm:p-8 shadow-md transition-all;
+    background-color: #FFFFFF;
+    color: var(--text-on-light);
+    border: 1px solid rgba(15,29,61,0.06);
+  }
+
+  .card--muted {
+    @apply rounded-lg p-4;
+    background-color: rgba(255,255,255,0.85);
+    color: var(--text-on-light);
+  }
+
+  /* Brand buttons */
+  .btn-brand {
+    @apply inline-flex items-center justify-center px-6 py-2 rounded-lg font-semibold text-white;
+    background-color: var(--brand-blue);
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center px-6 py-2 rounded-lg font-semibold text-white;
+    background-color: var(--brand-orange);
+  }
 }
 
 :root {
@@ -82,7 +138,7 @@
 
 /* Base styles */
 body {
-  background: var(--background);
+  background: var(--page-bg);
   color: var(--foreground);
   font-family: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
@@ -96,20 +152,577 @@ body {
 /* Layout styles */
 main {
   width: 100%;
-  max-width: 1440px;
+  /* max-width: 1440px; */
   margin: 0 auto;
-  padding: 0 1rem;
+  :root {
+    /* ===== BRAND COLOR PALETTE (Solid Colors - No Gradients) ===== */
+    --brand-blue:          #2196F3;     /* Bright Blue */
+    --brand-blue-light:    #E3F2FD;     /* Light Blue background */
+    --brand-blue-dark:     #1565C0;     /* Dark Blue */
+  
+    --brand-purple:        #7C3AED;     /* Violet/Purple */
+    --brand-purple-light:  #F3E8FF;     /* Light Purple background */
+    --brand-purple-dark:   #5B21B6;     /* Dark Purple */
+  
+    --brand-orange:        #FF6B35;     /* Warm Orange */
+    --brand-orange-light:  #FFF3E0;     /* Light Orange background */
+    --brand-orange-dark:   #E65100;     /* Dark Orange */
+  
+    --brand-magenta:       #FF2D95;     /* Vibrant Magenta/Pink */
+    --brand-magenta-light: #FCE4EC;     /* Light Magenta background */
+    --brand-magenta-dark:  #C2185B;     /* Dark Magenta */
+
+    /* ===== PAGE & SURFACE ===== */
+    --page-bg:             #FFFFFF;     /* Clean White */
+    --theme-bg:            rgba(12, 14, 20, 1);
+    --theme-surface:       rgba(18, 20, 26, 0.6);
+    --theme-surface-plain: transparent;
+    --theme-card:          rgba(255,255,255,0.03);
+    --theme-border:        rgba(255,255,255,0.06);
+
+    /* ===== TEXT COLORS ===== */
+    --text-on-light:       #0F1D3D;     /* Dark Navy text on light backgrounds */
+    --text-on-light-muted: rgba(15, 29, 61, 0.7);
+    --text-on-light-light: rgba(15, 29, 61, 0.5);
+    --text-white:          #FFFFFF;     /* White text on dark backgrounds */
+    --text-white-muted:    rgba(255, 255, 255, 0.8);
+    --text-on-blue:        #FFFFFF;     /* White text on blue */
+    --text-on-purple:      #FFFFFF;     /* White text on purple */
+    --text-on-orange:      #FFFFFF;     /* White text on orange */
+    --text-on-magenta:     #FFFFFF;     /* White text on magenta */
+
+    /* ===== SECTION BACKGROUNDS (SOLID COLORS - One per section) ===== */
+    --section-hero-bg:     #FFFFFF;                /* White Hero */
+    --section-about-bg:    var(--brand-blue-light);      /* Light Blue */
+    --section-services-bg: var(--brand-purple-light);    /* Light Purple */
+    --section-portfolio-bg: #FFFFFF;                     /* White */
+    --section-products-bg: var(--brand-orange-light);    /* Light Orange */
+    --section-team-bg:     var(--brand-magenta-light);   /* Light Magenta */
+    --section-process-bg:  var(--brand-blue-light);      /* Light Blue */
+    --section-stats-bg:    var(--brand-purple-light);    /* Light Purple */
+    --section-contact-bg:  var(--brand-orange);          /* Solid Orange */
+
+    /* ===== SEMANTIC TOKENS ===== */
+    --theme-text:          rgba(255,255,255,0.95);
+    --theme-muted:         rgba(200, 210, 215, 0.6);
+    --theme-accent:        var(--brand-magenta);
+    --theme-accent-2:      var(--brand-orange);
+    --theme-secondary:     #20B2AA;
+  }
+
+  /* Extended Color Palette for Visual Variety */
+  /* Update: primary gradient now goes blue → purple → magenta → orange */
+  --brand-gradient: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-1) 30%, var(--brand-2) 65%, var(--brand-3) 100%);
+  --color-teal:     #20B2AA; /* muted teal (secondary accent) */
+  --color-navy:     #0F1D3D; /* deep navy (text/dark areas) */
+  --color-cream:    #FFF8F0; /* warm cream (light backgrounds) */
+  --color-gold:     #D4AF37; /* accent gold (premium touch) */
+  --color-sage:     #6B8E6F; /* muted sage green (alternative accent) */
+  --color-slate:    #4A5568; /* neutral slate (text) */
+
+  /* Derived Gradients */
+  --brand-gradient:        linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 55%, var(--brand-3) 100%);
+  --gradient-purple-pink:  linear-gradient(135deg, #6E3CF0 0%, #FF2D95 100%);
+  --gradient-magenta-gold: linear-gradient(135deg, #FF2D95 0%, #D4AF37 100%);
+  --gradient-orange-red:   linear-gradient(135deg, #FF6A4B 0%, #FF2D5C 100%);
+  --gradient-cool:         linear-gradient(135deg, #20B2AA 0%, #6E3CF0 100%);
+  --gradient-dark:         linear-gradient(180deg, #0F1D3D 0%, #1a2d4d 100%);
+
+  /* ===== SEMANTIC TOKENS (Dark mode default) ===== */
+  --page-bg:               #ffffff; /* default page background (light feel) */
+  --theme-bg:              rgba(12, 14, 20, 1);
+  --theme-surface:         rgba(18, 20, 26, 0.6);
+  --theme-surface-plain:   transparent;
+  --theme-card:            rgba(255,255,255,0.03);
+  --theme-border:          rgba(255,255,255,0.06);
+  --theme-text:            rgba(255,255,255,0.95);
+  --theme-muted:           rgba(200, 210, 215, 0.6);
+  --theme-accent:          var(--brand-2); /* magenta */
+  --theme-accent-2:        var(--brand-3); /* orange */
+  --theme-secondary:       var(--color-teal);
+
+  /* ===== LIGHT MODE TEXT COLORS (for white/light backgrounds) ===== */
+  --text-on-light:         #0F1D3D; /* dark navy on light backgrounds */
+  --text-on-light-muted:   rgba(15, 29, 61, 0.7); /* muted text on light */
+  --text-on-light-light:   rgba(15, 29, 61, 0.5); /* lighter text on light */
+  --heading-on-light:      #0F1D3D; /* headings on light backgrounds */
+
+  /* ===== SECTION-SPECIFIC COLORS (for visual variety) ===== */
+  --section-hero-bg:       linear-gradient(135deg, #ffffff 0%, rgba(33, 150, 243, 0.04) 100%);
+  --section-about-bg:      linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(110, 60, 240, 0.06) 100%);
+  --section-services-bg:   linear-gradient(180deg, #ffffff 0%, rgba(33, 150, 243, 0.05) 100%);
+  --section-portfolio-bg:  linear-gradient(135deg, rgba(33, 150, 243, 0.08) 0%, rgba(110, 60, 240, 0.08) 100%);
+  --section-products-bg:   linear-gradient(135deg, #ffffff 0%, rgba(255, 106, 75, 0.05) 100%);
+  --section-team-bg:       linear-gradient(135deg, rgba(110, 60, 240, 0.08) 0%, rgba(255, 45, 149, 0.05) 100%);
+  --section-contact-bg:    linear-gradient(135deg, #2196F3 0%, #6E3CF0 30%, #FF2D95 65%, #FF6A4B 100%);
+
+  /* ===== CARD & COMPONENT VARIANTS ===== */
+  --card-bg-dark:         rgba(15, 29, 61, 0.4);
+  --card-bg-accent:       rgba(255, 45, 149, 0.08);
+  --card-bg-warm:         rgba(255, 106, 75, 0.05);
+  --card-border-glow:     rgba(255, 45, 149, 0.3);
+
+  /* ===== BUTTON STYLES ===== */
+  --btn-bg:               var(--brand-2);
+  --btn-bg-hover:         #e61a7a;
+  --btn-bg-secondary:     var(--color-teal);
+  --btn-bg-secondary-hover: #189f94;
+  --btn-bg-dark:          var(--color-navy);
+  --btn-bg-dark-hover:    #17284a;
+  --btn-text:             #ffffff;
+  --btn-text-dark:        #0C0E14;
+
+  /* ===== TEXT COLOR VARIANTS ===== */
+  --text-dark:            #0F1D3D;
+  --text-light:           #FFFFFF;
+  --text-muted-light:     rgba(15, 29, 61, 0.7);
+  --text-accent-light:    #FF2D95;
+  --text-secondary-light: var(--color-teal);
+
+  /* ===== SHADOWS (for depth) ===== */
+  --shadow-sm:            0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md:            0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg:            0 16px 40px rgba(0, 0, 0, 0.4);
+  --shadow-glow:          0 0 30px rgba(255, 45, 149, 0.25);
+  --shadow-glow-orange:   0 0 30px rgba(255, 106, 75, 0.25);
+
+  /* ===== ANIMATIONS ===== */
+  --duration-fast:        150ms;
+  --duration-normal:      300ms;
+  --duration-slow:        500ms;
+  --easing-smooth:        cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-bounce:        cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Responsive styles */
-@media (min-width: 768px) {
-  main {
-    padding: 0 2rem;
+/* Light-mode / alternate theme override example */
+/* Add `class="theme-light"` to `html` or `body` to switch */
+.theme-light {
+  --theme-bg: #fff;
+  --theme-surface: rgba(255,255,255,1);
+  --theme-card: #ffffff;
+  --theme-border: rgba(15, 23, 42, 0.06);
+  --theme-text: rgba(10, 10, 10, 0.95);
+  --theme-muted: rgba(55, 65, 81, 0.6);
+  --theme-accent: var(--brand-1);
+}
+
+/* Theme utility classes to use across components */
+.bg-theme {
+  background: var(--brand-gradient);
+}
+.bg-theme-solid {
+  background-color: var(--theme-bg);
+}
+.card-bg {
+  background-color: var(--theme-card);
+  border: 1px solid var(--theme-border);
+}
+.card-plain {
+  background: var(--theme-surface-plain);
+  border: 1px dashed transparent;
+}
+.surface {
+  background: var(--theme-surface);
+}
+.surface-plain {
+  background: var(--theme-surface-plain);
+}
+.text-theme {
+  color: var(--theme-text) !important;
+}
+.text-muted {
+  color: var(--theme-muted) !important;
+}
+.border-theme {
+  border-color: var(--theme-border) !important;
+}
+.btn-theme {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  box-shadow: 0 6px 18px rgba(47, 179, 255, 0.12);
+}
+.btn-theme:hover {
+  background: var(--btn-bg-hover);
+}
+
+/* Utility to keep an element visually "empty" (the user requested a blank tray)
+   Use this class on containers where you want explicit control via theme classes */
+.tray-empty {
+  background: transparent;
+  border: none;
+}
+
+/* Example responsive helper for gradient overlays */
+.overlay-gradient {
+  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.6));
+}
+
+/* Small helper to apply brand accent as text or border */
+.accent {
+  color: var(--theme-accent);
+}
+.accent-border {
+  border-color: var(--theme-accent);
+}
+
+/* Accessibility: ensure links/buttons using brand color have enough contrast when needed */
+.link-brand:focus, .link-brand:hover {
+  text-decoration: underline;
+}
+
+/* Accent helpers (use these instead of blue utilities) */
+.text-accent { color: var(--theme-accent) !important; }
+.text-accent-light { color: rgba(255,45,149,0.85) !important; }
+.border-accent { border-color: var(--theme-accent) !important; }
+.bg-accent-10 { background-color: rgba(255,45,149,0.10) !important; }
+.bg-accent-20 { background-color: rgba(255,45,149,0.20) !important; }
+.bg-accent-50 { background-color: rgba(255,45,149,0.50) !important; }
+.hover-bg-accent:hover { background-color: rgba(230,26,122,0.9) !important; }
+
+
+/* Edge-to-edge / No side gaps helpers
+   - Add `edge-to-edge` to a container (or `main`) to let children fill full width
+   - Use `.full-bleed` on specific blocks to force them to span the viewport
+   - Use `.no-side-gaps` on `body` or `main` to remove global page padding
+*/
+.edge-to-edge {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.edge-to-edge .container {
+  max-width: 100%;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.no-side-gaps main, .no-side-gaps body, .no-side-gaps .container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+}
+
+/* ===== ANIMATION KEYFRAMES ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (min-width: 1024px) {
-  main {
-    padding: 0 4rem;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes lift {
+  0% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  100% {
+    transform: translateY(-15px) rotateX(5deg);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 45, 149, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 45, 149, 0.8);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* ===== ANIMATION UTILITY CLASSES ===== */
+.animate-fade-in-up {
+  animation: fadeInUp var(--duration-normal) var(--easing-smooth) forwards;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown var(--duration-normal) var(--easing-smooth) forwards;
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft var(--duration-normal) var(--easing-smooth) forwards;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight var(--duration-normal) var(--easing-smooth) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--duration-normal) var(--easing-smooth) forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn var(--duration-slow) var(--easing-smooth) forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-lift {
+  animation: lift var(--duration-normal) var(--easing-bounce) forwards;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Stagger delays for sequential animations */
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+/* ===== SCROLL ANIMATION HELPERS ===== */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--duration-normal) var(--easing-smooth),
+              transform var(--duration-normal) var(--easing-smooth);
+}
+
+.scroll-animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== CARD & HOVER EFFECTS ===== */
+.card-lift {
+  transition: all var(--duration-normal) var(--easing-smooth);
+}
+
+.card-lift:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-glow {
+  transition: all var(--duration-normal) var(--easing-smooth);
+  border: 1px solid var(--card-border-glow);
+}
+
+.card-glow:hover {
+  box-shadow: var(--shadow-glow);
+  border-color: rgba(255, 45, 149, 0.6);
+}
+
+.card-interactive {
+  transition: all var(--duration-normal) var(--easing-smooth);
+  border: 1px solid var(--card-border-glow);
+}
+
+.card-interactive:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-glow);
+  border-color: rgba(255, 45, 149, 0.6);
+}
+
+/* ===== PREMIUM BACKGROUND VARIANTS ===== */
+.bg-section-light {
+  background: linear-gradient(135deg, #ffffff 0%, #FFF8F0 100%);
+}
+
+.bg-section-dark {
+  background: linear-gradient(135deg, #0F1D3D 0%, #0C0E14 100%);
+}
+
+.bg-section-accent {
+  background: linear-gradient(135deg, rgba(255, 45, 149, 0.1) 0%, rgba(110, 60, 240, 0.05) 100%);
+}
+
+.bg-section-warm {
+  background: linear-gradient(135deg, rgba(255, 106, 75, 0.08) 0%, rgba(212, 175, 55, 0.04) 100%);
+}
+
+/* ===== GRADIENT TEXT ===== */
+.text-gradient {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-warm {
+  background: linear-gradient(135deg, #FF2D95 0%, #FF6A4B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-cool {
+  background: linear-gradient(135deg, #20B2AA 0%, #6E3CF0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== PREMIUM BUTTON VARIANTS ===== */
+.btn-accent {
+  background: var(--brand-2);
+  color: white;
+  border: none;
+  transition: all var(--duration-fast) var(--easing-smooth);
+}
+
+.btn-accent:hover {
+  background: #e61a7a;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-secondary {
+  background: var(--color-teal);
+  color: white;
+  border: none;
+  transition: all var(--duration-fast) var(--easing-smooth);
+}
+
+.btn-secondary:hover {
+  background: #189f94;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(32, 178, 170, 0.4);
+}
+
+.btn-outline-light {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  transition: all var(--duration-fast) var(--easing-smooth);
+}
+
+.btn-outline-light:hover {
+  background: white;
+  color: #0F1D3D;
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: #0F1D3D;
+  border: 2px solid #0F1D3D;
+  transition: all var(--duration-fast) var(--easing-smooth);
+}
+
+.btn-outline-dark:hover {
+  background: #0F1D3D;
+  color: white;
+}
+
+/* ===== PREMIUM DIVIDER & SEPARATOR ===== */
+.divider-accent {
+  height: 3px;
+  background: var(--brand-gradient);
+  border: none;
+  margin: 2rem 0;
+}
+
+.divider-subtle {
+  height: 1px;
+  background: var(--theme-border);
+  border: none;
+  margin: 2rem 0;
 }

@@ -66,23 +66,23 @@ const Loader = () => {
   return (
     <div 
       ref={loaderRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-white"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-gray-900 to-[var(--theme-accent)]"
       style={{ opacity: 0 }}
     >
       <div className="w-full max-w-md p-8 text-center">
         <div className="loader-logo mb-8">
-          <h2 className="text-4xl font-bold text-gray-900 mb-2">Shivnem Graphics</h2>
-          <div className="loader-tagline text-lg text-gray-600">Premium Printing Solutions Since 2010</div>
+          <h2 className="text-4xl font-bold text-white mb-2">Shivnem Graphics</h2>
+          <div className="loader-tagline text-lg text-gray-300">Premium Printing Solutions Since 2010</div>
         </div>
         <div className="loader-bar w-full h-1 bg-gray-200 rounded-full overflow-hidden">
           <div className="loader-progress h-full w-0 bg-teal-500 transform origin-left"></div>
         </div>
-        <div className="mt-4 text-sm text-gray-500 flex justify-center space-x-4">
-          <span>5000+ Projects</span>
-          <span>•</span>
-          <span>15+ Years</span>
-          <span>•</span>
-          <span>800+ Clients</span>
+        <div className="mt-4 text-sm flex justify-center space-x-4">
+          <span className="text-gray-300">5000+ Projects</span>
+          <span className="text-gray-300">•</span>
+          <span className="text-gray-300">15+ Years</span>
+          <span className="text-gray-300">•</span>
+          <span className="text-gray-300">800+ Clients</span>
         </div>
       </div>
     </div>
