@@ -92,7 +92,7 @@ export default function AboutSection() {
           {/* LEFT */}
           <div className="col-left">
             <h2 className="heading reveal reveal-1">
-              <p className="heading-accent">Shivnem Graphics</p>
+              <span className="heading-regular">About</span> <span className="heading-accent">Shivnem Graphics</span>
             </h2>
 
             <p className="lead reveal reveal-2">

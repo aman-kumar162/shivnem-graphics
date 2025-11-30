@@ -84,7 +84,7 @@
 /* accent word = blue */
 .heading-accent {
   font-family: 'Clash Display', sans-serif;
-  font-weight: 300;
+  font-weight: 500;
   color: #2563eb;
   /* Force blue */
   display: inline-block;
@@ -99,7 +99,8 @@
   line-height: 1.8;
   color: var(--text-dark);
   /* darker for readability */
-  margin: 12px 0 32px 0;
+  margin: -10px 0 32px 0;
+  margin-top: -40px;
   max-width: 640px;
   font-weight: 500;
 }
