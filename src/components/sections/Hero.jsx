@@ -42,8 +42,8 @@ const Hero = () => {
 
 
   return (
-    <section id="home" className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: 'var(--section-hero-bg)' }}>
-      <div className="absolute inset-0 -z-10" style={{ backgroundColor: 'var(--section-hero-bg)' }} />
+    <section id="home" className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20 px-4 sm:px-6 lg:px-8 bg-theme">
+      <div className="absolute inset-0 -z-10" />
 
       {/* Subtle decorative accents */}
       <div className="absolute top-10 left-10 w-20 h-20 rounded-full opacity-10" style={{ backgroundColor: 'var(--brand-blue)' }}></div>
@@ -51,19 +51,19 @@ const Hero = () => {
       <div className="absolute top-1/2 right-1/4 w-24 h-24 rounded-full opacity-10" style={{ backgroundColor: 'var(--brand-purple)' }}></div>
 
       <div className="relative z-10 text-center max-w-4xl w-full">
-        <h1 className="hero-title text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ color: 'var(--text-on-light)' }}>
+        <h1 className="hero-title text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ color: 'var(--text-white)' }}>
           Shivnem Graphics
         </h1>
         
         <h2 className="hero-subtitle text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mt-4 sm:mt-6" style={{
-          color: 'var(--brand-blue)',
+          color: 'var(--text-white)',
         }}>
           Transform Your Ideas<br className="hidden sm:block" />
           Into Stunning<br />
           Print Reality
         </h2>
 
-        <p className="hero-description text-sm sm:text-base lg:text-lg leading-relaxed my-6 sm:my-8 max-w-2xl mx-auto" style={{ color: 'var(--text-on-light-muted)' }}>
+        <p className="hero-description text-sm sm:text-base lg:text-lg leading-relaxed my-6 sm:my-8 max-w-2xl mx-auto" style={{ color: 'var(--text-white-muted)' }}>
           Your complete printing partner in Ambala Cantt, delivering premium quality with creative excellence for all your business and personal needs.
         </p>
 
@@ -79,7 +79,7 @@ const Hero = () => {
           <Button 
             variant="outline"
             className="w-full sm:w-auto px-8 py-3 border-2 font-semibold hover:scale-105 transition-all duration-300"
-            style={{ borderColor: 'var(--brand-blue)', color: 'var(--brand-blue)', backgroundColor: 'rgba(33, 150, 243, 0.05)' }}
+            style={{ borderColor: 'var(--text-white)', color: 'var(--text-white)', backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
             onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
           >
             View Portfolio
@@ -89,7 +89,7 @@ const Hero = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float z-10">
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ color: 'var(--brand-purple)' }}>
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ color: 'var(--text-white)' }}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>

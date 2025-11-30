@@ -1,0 +1,276 @@
+/* =========================
+   PREMIUM BACKGROUND PATCHES — Screenshot-matching CSS
+   Paste at end of your global CSS (globals.css)
+   ========================= */
+
+:root {
+    --patch-main: radial-gradient(circle at 30% 40%,
+            rgba(0, 255, 200, 0.65) 0%,
+            rgba(0, 180, 255, 0.75) 25%,
+            rgba(70, 120, 255, 0.75) 50%,
+            rgba(140, 40, 200, 0.75) 70%,
+            rgba(255, 60, 160, 0.75) 85%,
+            rgba(20, 40, 80, 1) 100%),
+        linear-gradient(135deg,
+            #00f6c7 0%,
+            #06b4ff 20%,
+            #4a7bff 45%,
+            #8b2dbf 70%,
+            #ff3fa0 90%);
+
+    --patch-red-1: rgba(255, 76, 76, 0.95);
+    /* main blob red */
+    --patch-red-2: rgba(255, 63, 160, 0.6);
+    --patch-opacity: 0.20;
+    --patch-blur-lg: 70px;
+    --patch-blur-md: 44px;
+}
+
+/* container wrapper for sections - transparent to show fixed background */
+.premium-bg {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    background: transparent;
+    /* transparent to show fixed background image */
+}
+
+/* the content sits above patches */
+.premium-bg .premium-content {
+    position: relative;
+    z-index: 20;
+}
+
+/* -------- Main red blobs (matches screenshot) - DISABLED for fixed background -------- */
+.premium-blob {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(var(--patch-blur-md));
+    opacity: 0;
+    /* disabled to show background image */
+    transition: opacity .45s ease, transform .6s cubic-bezier(.2, .9, .3, 1);
+    background: radial-gradient(circle at 32% 28%,
+            var(--patch-red-1) 0%,
+            var(--patch-red-2) 40%,
+            rgba(255, 106, 61, 0.26) 70%,
+            transparent 85%);
+    mix-blend-mode: screen;
+    display: none;
+}
+
+/* biggest right-top blob (main) */
+.premium-blob.blob-1 {
+    width: 520px;
+    height: 520px;
+    right: -80px;
+    /* nudged off-canvas like screenshot */
+    top: -40px;
+    border-radius: 48%;
+    filter: blur(58px);
+    opacity: 0;
+    transform: translateZ(0);
+}
+
+/* right-mid blob */
+.premium-blob.blob-2 {
+    width: 360px;
+    height: 360px;
+    right: 60px;
+    top: 140px;
+    border-radius: 46%;
+    filter: blur(48px);
+    opacity: 0;
+}
+
+/* small droplet to right */
+.premium-blob.blob-3 {
+    width: 120px;
+    height: 120px;
+    right: 26px;
+    top: 320px;
+    border-radius: 50%;
+    filter: blur(36px);
+    opacity: 0;
+}
+
+/* left small accent blob (bottom-left) */
+.premium-blob.blob-4 {
+    width: 320px;
+    height: 320px;
+    left: -110px;
+    bottom: -60px;
+    border-radius: 44%;
+    filter: blur(52px);
+    opacity: 0;
+    background: radial-gradient(circle at 30% 30%,
+            rgba(255, 106, 61, 0.24) 0%,
+            rgba(255, 63, 160, 0.06) 35%,
+            transparent 70%);
+}
+
+/* subtle multi-color center aura (very soft, behind content) - DISABLED */
+.premium-aura {
+    position: absolute;
+    left: 10%;
+    top: 8%;
+    width: 720px;
+    height: 420px;
+    border-radius: 40%;
+    background-image: var(--patch-main);
+    background-size: 180% 180%;
+    filter: blur(40px) saturate(1.05);
+    opacity: 0;
+    /* disabled */
+    z-index: 0;
+    pointer-events: none;
+    display: none;
+}
+
+/* dotted red overlay (keeps your dotted pattern) - DISABLED */
+.premium-dots {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle, rgba(255, 80, 80, 0.06) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255, 60, 90, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px, 60px 60px;
+    background-position: 0 0, 30px 30px;
+    opacity: 0;
+    mix-blend-mode: overlay;
+    mask-image: linear-gradient(transparent 0%, black 20%, black 100%);
+    display: none;
+    /* off by default (enable via class .show-dots) */
+}
+
+/* small floating micro-shapes used in screenshot to make the right area busy - DISABLED */
+.premium-shape {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.25));
+    filter: blur(14px);
+    opacity: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: none;
+}
+
+/* position some micro shapes */
+.premium-shape.s1 {
+    right: 200px;
+    top: 220px;
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    filter: blur(8px);
+}
+
+.premium-shape.s2 {
+    right: 98px;
+    top: 94px;
+    width: 34px;
+    height: 34px;
+    opacity: 0;
+    filter: blur(10px);
+}
+
+.premium-shape.s3 {
+    right: 36px;
+    top: 440px;
+    width: 18px;
+    height: 18px;
+    opacity: 0;
+    filter: blur(6px);
+}
+
+/* -------- Responsive & accessibility -------- */
+@media (max-width: 1100px) {
+    .premium-blob.blob-1 {
+        width: 420px;
+        height: 420px;
+        right: -60px;
+        top: -20px;
+        filter: blur(48px);
+    }
+
+    .premium-blob.blob-2 {
+        width: 300px;
+        height: 300px;
+        right: 32px;
+        top: 120px;
+    }
+
+    .premium-aura {
+        left: 6%;
+        top: 6%;
+        width: 520px;
+        height: 320px;
+        opacity: 0;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .premium-blob,
+    .premium-aura,
+    .premium-shape {
+        display: none;
+    }
+
+    /* hide heavy decor on mobile */
+    .premium-dots {
+        display: none;
+    }
+}
+
+/* Subtle float animation to mimic screenshot's soft motion */
+@keyframes premiumFloat {
+    0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-8px) scale(1.01) rotate(0.2deg);
+    }
+
+    100% {
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+}
+
+.premium-blob.pulse {
+    animation: premiumFloat 9s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.premium-blob.pulse-slow {
+    animation: premiumFloat 16s ease-in-out infinite;
+}
+
+/* utility to show dotted overlay */
+.premium-bg.show-dots .premium-dots {
+    display: block;
+    opacity: 0.18;
+}
+
+/* if you prefer the dotted overlay stronger (for hero), use .show-dots-strong */
+.premium-bg.show-dots-strong .premium-dots {
+    display: block;
+    opacity: 0.35;
+}
+
+/* small helper to ensure content top spacing matches screenshot */
+.premium-bg .premium-content.section-inner {
+    padding-top: 88px;
+    /* moves content down so heading sits similar to screenshot */
+}
+
+/* ensure patches don't interfere with keyboard focus */
+.premium-bg *:focus {
+    position: relative;
+    z-index: 40;
+}

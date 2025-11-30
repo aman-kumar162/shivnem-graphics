@@ -71,14 +71,10 @@ const Portfolio = () => {
     : portfolioItems.filter(item => item.category === activeFilter);
 
   return (
-    <section id="portfolio" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28 bg-white" style={{ background: '#ffffff' }}>
-      {/* Solid white background with subtle decorative elements removed */}
-      <div className="absolute inset-0 opacity-0 -z-10" />
-      <div className="absolute top-1/2 right-0 w-96 h-96 opacity-0 -z-10" />
-
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <section id="portfolio" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28 bg-transparent dotted-red-overlay">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full content-layer">
         <div className="text-center mb-12 sm:mb-16 lg:mb-20 scroll-animate" ref={titleRef}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: '#0f172a' }}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: '#000080' }}>
             Our Portfolio
           </h2>
           <p className="text-sm sm:text-base lg:text-lg max-w-2xl mx-auto scroll-animate" ref={subtitleRef} style={{ color: 'var(--text-on-light-muted)' }}>
@@ -100,7 +96,6 @@ const Portfolio = () => {
               {filter.label}
             </button>
           ))}
-
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
@@ -115,7 +110,7 @@ const Portfolio = () => {
 
               <div className="p-4 sm:p-8 relative z-10">
                 <p className="text-xs sm:text-sm text-[#2196F3] mb-2 font-semibold uppercase tracking-wider">{item.client}</p>
-                <h3 className="text-lg sm:text-2xl font-bold mb-3 sm:mb-4 group-hover:text-[#2196F3] transition-colors duration-300" style={{ color: '#0f172a' }}>
+                <h3 className="text-lg sm:text-2xl font-bold mb-3 sm:mb-4 group-hover:text-[#2196F3] transition-colors duration-300" style={{ color: '#000080' }}>
                   {item.title}
                 </h3>
                 <p className="text-xs sm:text-base mb-4 sm:mb-6" style={{ color: '#475569' }}>{item.description}</p>

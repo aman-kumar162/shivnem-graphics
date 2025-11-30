@@ -21,6 +21,9 @@ import Portfolio from '@/components/sections/Portfolio';
 import Process from '@/components/sections/Process';
 import Team from '@/components/sections/Team';
 import Contact from '@/components/sections/Contact';
+import PremiumHero from '@/components/sections/PremiumHero';
+import { PreludeState } from 'next/dist/server/app-render/dynamic-rendering';
+import PremiumBackground from './PremiumBackground';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -61,15 +64,17 @@ export default function Home() {
      
       <main className="min-h-screen">
          <Navbar />
-        <Hero />
-        <StatsSection />
-        <About />
+        <PremiumHero/>
+       
+         <About />
         <Services />
         <Products />
         <Portfolio />
         <Process />
         <Team />
+        <PremiumBackground>
         <Contact />
+        </PremiumBackground>
       </main>
     </>
   );

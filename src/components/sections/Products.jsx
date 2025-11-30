@@ -61,7 +61,6 @@ const Products = () => {
       price: 'Varies',
       image: '🎁'
     },
-    // Add more products...
   ];
 
   const filteredProducts = activeFilter === 'all' 
@@ -69,14 +68,14 @@ const Products = () => {
     : products.filter(product => product.category === activeFilter);
 
   return (
-    <section id="products" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ background: '#FFF3E0' }}>
+    <section id="products" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28">
       {/* Light orange solid background */}
       <div className="absolute inset-0 opacity-0 -z-10" />
       <div className="absolute bottom-0 right-0 w-96 h-96 opacity-0 -z-10" />
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="text-center mb-12 sm:mb-16 lg:mb-20 scroll-animate" ref={titleRef}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: '#0f172a' }}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: '#000080' }}>
             Product Gallery
           </h2>
           <p className="text-sm sm:text-base lg:text-lg max-w-2xl mx-auto scroll-animate" ref={subtitleRef} style={{ color: 'var(--text-on-light-muted)' }}>
@@ -125,7 +124,7 @@ const Products = () => {
               </div>
 
               <div className="p-6 relative z-10">
-                <h4 className="text-xl font-bold mb-2 group-hover:text-[#FF6B35] transition-colors duration-300" style={{ color: '#0f172a' }}>
+                <h4 className="text-xl font-bold mb-2 group-hover:text-[#FF6B35] transition-colors duration-300" style={{ color: '#000080' }}>
                   {product.title}
                 </h4>
                 <p className="mb-4 text-sm" style={{ color: 'var(--text-on-light-muted)' }}>

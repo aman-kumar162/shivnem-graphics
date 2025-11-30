@@ -1,4 +1,4 @@
- 'use client';
+'use client';
 import React, { useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -17,14 +17,14 @@ const Team = () => {
   ];
 
   return (
-    <section id="team" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ background: '#FCE4EC' }}>
+    <section id="team" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28">
       {/* Light magenta solid background */}
       <div className="absolute inset-0 opacity-0 -z-10" />
       <div className="absolute top-1/2 left-0 w-96 h-96 opacity-0 -z-10" />
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="text-center mb-12 sm:mb-16 lg:mb-20 scroll-animate" ref={titleRef}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3" style={{ color: '#0f172a' }}>Our Team</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3" style={{ color: '#000080' }}>Our Team</h2>
           <p className="max-w-2xl mx-auto scroll-animate" ref={subtitleRef} style={{ color: 'var(--text-on-light-muted)' }}>Meet the experts behind our quality service</p>
         </div>
 
@@ -44,7 +44,7 @@ const Team = () => {
                   </div>
 
                   {/* Name and Position */}
-                  <h3 className="text-lg sm:text-xl font-bold text-[#0f172a] transition-colors duration-300 mb-1">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#000080] transition-colors duration-300 mb-1">
                     {member.name}
                   </h3>
                   <p className="text-sm text-[#FF2D95] font-semibold mb-3">{member.position}</p>

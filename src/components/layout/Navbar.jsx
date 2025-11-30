@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
-
+import '../css/navbar-hero.css'
 const Navbar = () => {
   const navRef = useRef(null);
   const menuRef = useRef(null);
@@ -64,7 +64,7 @@ const Navbar = () => {
             <h2 className="text-lg sm:text-xl font-bold text-white">Shivnem Graphics</h2>
             <span className="text-xs sm:text-sm" style={{ color: 'var(--brand-blue)' }}>Premium Solutions</span>
           </div>
-        </div>
+      </div>
         
         <ul
           ref={menuRef}
@@ -93,13 +93,30 @@ const Navbar = () => {
 
         <div className="flex items-center space-x-3 sm:space-x-4">
           <button 
-            className="hidden md:block text-white px-6 py-2 rounded-lg transition-all font-medium text-sm"
-            style={{ backgroundColor: 'var(--brand-orange)' }}
+            className="hidden md:block relative px-6 py-2 rounded-lg font-semibold text-white overflow-hidden transition-all duration-300 group"
+            style={{ 
+              background: 'linear-gradient(45deg, #C2185B, #E65100)',
+              boxShadow: '0 4px 15px rgba(194, 24, 91, 0.4)'
+            }}
             onClick={() => {
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
             }}
+            onMouseEnter={(e) => {
+              gsap.to(e.currentTarget, { scale: 1.05, duration: 0.3, ease: 'back.out(1.7)' });
+              gsap.to(e.currentTarget, { boxShadow: '0 0 20px rgba(194, 24, 91, 0.6), 0 0 40px rgba(230, 81, 0, 0.4)', duration: 0.3 });
+            }}
+            onMouseLeave={(e) => {
+              gsap.to(e.currentTarget, { scale: 1, duration: 0.3, ease: 'power2.out' });
+              gsap.to(e.currentTarget, { boxShadow: '0 4px 15px rgba(194, 24, 91, 0.4)', duration: 0.3 });
+            }}
           >
-            Get Quote
+            <span className="relative z-10 flex items-center gap-2">
+              Get Quote
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
+            <span className="absolute inset-0 bg-gradient-to-r from-brand-purple to-brand-magenta opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </button>
 
           <button

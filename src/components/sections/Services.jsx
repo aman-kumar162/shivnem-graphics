@@ -21,21 +21,11 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ background: 'linear-gradient(180deg, #ffffff 0%, rgba(33, 150, 243, 0.05) 100%)' }}>
-      {/* Subtle blue gradient background */}
-      <div className="absolute inset-0 opacity-5 blur-3xl -z-10" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-brand-2 to-brand-3 opacity-5 blur-3xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-brand-1 to-brand-2 opacity-5 blur-3xl -z-10" />
-
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl">
+    <section id="services" className="w-full relative overflow-hidden py-2 sm:py-20 lg:py-28 dotted-red-overlay">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl content-layer">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 lg:mb-20 scroll-animate" ref={titleRef}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{
-            background: 'linear-gradient(135deg, #2196F3 0%, #6E3CF0 30%, #FF2D95 65%, #FF6A4B 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
-          }}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: '#000080' }}>
             Our Services
           </h2>
           <p className="max-w-2xl mx-auto text-sm sm:text-base lg:text-lg scroll-animate" ref={subtitleRef} style={{ color: 'var(--text-on-light-muted)' }}>
@@ -67,7 +57,7 @@ const Services = () => {
                 <div className="mb-4 text-4xl">
                   {service.icon}
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 group-hover:text-brand-2 transition-colors duration-300" style={{ color: 'var(--text-on-light)' }}>
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 group-hover:text-brand-2 transition-colors duration-300" style={{ color: '#000080' }}>
                   {service.name}
                 </h3>
                 {/* Animated bottom line indicator */}
