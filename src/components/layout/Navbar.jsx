@@ -3,11 +3,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import '../css/navbar-hero.css'
+
 const Navbar = () => {
   const navRef = useRef(null);
   const menuRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
     if (!navRef.current) return;
@@ -37,12 +39,26 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (typeof window !== 'undefined') {
-        setHasScrolled(window.scrollY > 50);
+        setHasScrolled(window.scrollY > 100);
+        
+        // Detect active section
+        const sections = ['about', 'services', 'products', 'portfolio', 'process', 'team', 'contact'];
+        for (const section of sections) {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 100 && rect.bottom >= 100) {
+              setActiveSection(section);
+              break;
+            }
+          }
+        }
       }
     };
 
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial check
       return () => window.removeEventListener('scroll', handleScroll);
     }
   }, []);
@@ -54,15 +70,21 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-sm ${hasScrolled ? 'shadow-2xl py-3' : 'py-4'}`}
+      className={`fixed top-0 max-h-[100px] left-0 w-full z-50 transition-all duration-300 backdrop-blur-sm ${hasScrolled ? 'shadow-2xl py-3' : 'py-4'}`}
       style={{ backgroundColor: 'rgba(15,23,42,0.95)' }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl flex items-center justify-between">
-          <div className="nav-logo flex items-center gap-3">
+      <div className="container mx-auto px-7 max-w-[1300px] flex items-center justify-between">
+          <div 
+            className="nav-logo flex items-center gap-3 cursor-pointer"
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveSection('about');
+            }}
+          >
           <img src="/sg.png" alt="Shivnem Graphics Logo" className="w-10 h-10 sm:w-12 sm:h-12" />
-          <div className="flex flex-col">
-            <h2 className="text-lg sm:text-xl font-bold text-white">Shivnem Graphics</h2>
-            <span className="text-xs sm:text-sm" style={{ color: 'var(--brand-blue)' }}>Premium Solutions</span>
+          <div className="flex flex-col" style={{ lineHeight: '1.2' }}>
+            <h2 className="text-base sm:text-lg font-bold text-white" style={{ marginBottom: '2px' }}>Shivnem Graphics</h2>
+            <span className="text-xs" style={{ color: 'var(--blue)' }}>Premium Solutions</span>
           </div>
       </div>
         
@@ -74,15 +96,18 @@ const Navbar = () => {
                 : 'hidden md:flex'
           }`}
         >
-          {['home', 'about', 'services', 'products', 'portfolio', 'process', 'team', 'contact'].map((item) => (
+          {['about', 'services', 'products', 'portfolio', 'process', 'team', 'contact'].map((item) => (
             <li key={item}>
               <a
                 href={`#${item}`}
-                className="text-white hover:text-white px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium"
+                className={`text-white hover:text-white px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium ${
+                  activeSection === item ? 'active' : ''
+                }`}
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById(item)?.scrollIntoView({ behavior: 'smooth' });
                   setIsMenuOpen(false);
+                  setActiveSection(item);
                 }}
               >
                 {item}
@@ -91,7 +116,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="flex items-center space-x-3 sm:space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           <button 
             className="hidden md:block relative px-6 py-2 rounded-lg font-semibold text-white overflow-hidden transition-all duration-300 group"
             style={{ 

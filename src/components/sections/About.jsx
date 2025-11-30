@@ -3,141 +3,169 @@
 import React, { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import '../css/about.css';
-import StatsSection from './StatsSection';
 
-// keep your Three.js background (lazy load to avoid SSR)
+
 const AboutParticles = dynamic(() => import('../three/AboutParticles'), { ssr: false });
 
 export default function AboutSection() {
   const rootRef = useRef(null);
   const visualFrameRef = useRef(null);
-  const ioRef = useRef(null);
+  const [imageOffset, setImageOffset] = React.useState(0);
 
   useEffect(() => {
-    // IntersectionObserver: add/remove 'in-view' for enter/exit animations
-    const opts = { root: null, rootMargin: '0px 0px -12% 0px', threshold: [0.06, 0.4] };
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const el = entry.target;
-        if (entry.intersectionRatio > 0.06) el.classList.add('in-view');
-        else el.classList.remove('in-view');
-      });
-    }, opts);
-    ioRef.current = io;
+    /* ========== REVEAL ANIMATION ON SCROLL ========= */
+    const io = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("in-view");
+          else entry.target.classList.remove("in-view");
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-    if (rootRef.current) {
-      rootRef.current.querySelectorAll('.reveal').forEach((n) => io.observe(n));
-    }
+    rootRef.current?.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-    // Subtle parallax on scroll for visual-bg
+    /* ========== PARALLAX ON SCROLL ========= */
     const onScroll = () => {
-      const el = rootRef.current?.querySelector('.visual-bg');
+      const el = rootRef.current?.querySelector(".visual-inner");
       if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const windowH = window.innerHeight;
-      const p = Math.max(0, Math.min(1, (windowH - rect.top) / (windowH + rect.height)));
-      const y = (p - 0.5) * 20; // move up/down
-      const s = 1.01 + (p - 0.5) * 0.008;
-      el.style.transform = `translateY(${y}px) scale(${s})`;
+
+      const r = el.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (window.innerHeight - r.top) / (window.innerHeight + r.height)));
+
+      el.style.transform = `translateY(${(p - 0.5) * 20 + imageOffset}px) scale(${1 + (p - 0.5) * 0.02})`;
     };
 
-    // interactive tilt for visual-frame
-    const vf = visualFrameRef.current;
-    let raf = null;
-    const onPointerMove = (e) => {
-      if (!vf) return;
-      const rect = vf.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) / rect.width;
-      const dy = (e.clientY - cy) / rect.height;
-      const rx = Math.max(-1, Math.min(1, dy * 8));
-      const ry = Math.max(-1, Math.min(1, dx * -8));
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        vf.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.01)`;
-      });
-    };
-    const onPointerLeave = () => { if (vf) vf.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)'; };
+    window.addEventListener("scroll", onScroll);
+    onScroll();
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    if (vf) {
-      vf.addEventListener('pointermove', onPointerMove);
-      vf.addEventListener('pointerleave', onPointerLeave);
+    /* ========== TILT ON HOVER (FRAME) ========= */
+    const frame = visualFrameRef.current;
+    const onMove = e => {
+      const rect = frame.getBoundingClientRect();
+      const dx = (e.clientX - rect.left - rect.width / 2) / rect.width;
+      const dy = (e.clientY - rect.top - rect.height / 2) / rect.height;
+
+      frame.style.transform = `perspective(900px)
+                               rotateX(${dy * -6}deg)
+                               rotateY(${dx * 6}deg)
+                               scale(1.015)`;
+    };
+    const onLeave = () =>
+      (frame.style.transform =
+        "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)");
+
+    if (frame) {
+      frame.addEventListener("pointermove", onMove);
+      frame.addEventListener("pointerleave", onLeave);
     }
 
-    onScroll();
+    /* ========== TILT ON HOVER (CARDS) ========= */
+    const cards = rootRef.current?.querySelectorAll(".feature-card");
+    const cardHandlers = [];
+
+    cards?.forEach((card, index) => {
+      const onCardMove = e => {
+        const rect = card.getBoundingClientRect();
+        const dx = (e.clientX - rect.left - rect.width / 2) / rect.width;
+        const dy = (e.clientY - rect.top - rect.height / 2) / rect.height;
+        card.style.transform = `perspective(800px) rotateX(${dy * -8}deg) rotateY(${dx * 8}deg) translateZ(20px)`;
+        card.style.zIndex = "10";
+      };
+      const onCardLeave = () => {
+        card.style.transform = "";
+        card.style.zIndex = "1";
+      };
+      
+      // Click handler to move image
+      const onCardClick = () => {
+        setImageOffset(prev => prev + 30);
+        setTimeout(() => setImageOffset(0), 1000);
+      };
+      
+      card.addEventListener("pointermove", onCardMove);
+      card.addEventListener("pointerleave", onCardLeave);
+      card.addEventListener("click", onCardClick);
+      cardHandlers.push({ element: card, move: onCardMove, leave: onCardLeave, click: onCardClick });
+    });
 
     return () => {
       io.disconnect();
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (vf) {
-        vf.removeEventListener('pointermove', onPointerMove);
-        vf.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener("scroll", onScroll);
+      if (frame) {
+        frame.removeEventListener("pointermove", onMove);
+        frame.removeEventListener("pointerleave", onLeave);
       }
-      if (raf) cancelAnimationFrame(raf);
+      cardHandlers.forEach(h => {
+        h.element.removeEventListener("pointermove", h.move);
+        h.element.removeEventListener("pointerleave", h.leave);
+        h.element.removeEventListener("click", h.click);
+      });
     };
-  }, []);
+  }, [imageOffset]);
 
   return (
-    <section ref={rootRef} className="about-stunning">
-      {/* background particles (Three.js) - DISABLED to show fixed background */}
-      {/* <AboutParticles /> */}
+    <section ref={rootRef} className="about-section">
+      <div className="about-container">
 
-      <div className="about-inner">
-        <div className="about-grid">
+        {/* LEFT SIDE */}
+        <div className="about-left">
+          <h1 className="title reveal">
+            <span className="title-accent"> <span className='text-black'> Shivnem</span> Graphics</span>
+          </h1>
 
-          {/* LEFT */}
-          <div className="col-left">
-            <h2 className="heading reveal reveal-1">
-              <span className="heading-regular">About</span> <span className="heading-accent">Shivnem Graphics</span>
-            </h2>
+          <p className="subtitle reveal">
+            We combine craft and technology to deliver high-fidelity print for
+            brands & creators — from colour-precision proofing to large-format print.
+          </p>
 
-            <p className="lead reveal reveal-2">
-              has combined craft and technology to deliver high-fidelity print for brands and creators.
-              From precise color proofing to large-format artistry — we make your ideas tangible and striking.
-            </p>
+          <div className="card-grid">
 
-            <div className="cards-grid">
-              <article tabIndex={0} className="card reveal animate-delay-100">
-                <h4 className="card-title">Premium Quality</h4>
-                <p className="card-desc">State-of-the-art printing technology ensuring superior detail, rich color depth and lasting results.</p>
-              </article>
-
-              <article tabIndex={0} className="card reveal animate-delay-250">
-                <h4 className="card-title">Fast Turnaround</h4>
-                <p className="card-desc">Agile production flows and dedicated finishing ensure fast delivery without sacrificing quality.</p>
-              </article>
-
-              <article tabIndex={0} className="card reveal animate-delay-400">
-                <h4 className="card-title">Creative Design</h4>
-                <p className="card-desc">In-house designers craft briefs that preserve brand voice and amplify visual impact in print.</p>
-              </article>
+            <div className="feature-card reveal delay-1">
+              <h4>Premium Quality</h4>
+              <p>Superior detail and rich color depth for lasting results.</p>
             </div>
-            <StatsSection />
-          </div>
-          <div className="floating-dot floating-dot-1" aria-hidden="true"></div>
-          <div className="floating-dot floating-dot-2" aria-hidden="true"></div>
-          <div className="floating-dot floating-dot-3" aria-hidden="true"></div>
-          
-          {/* RIGHT VISUAL */}
-          <div className="col-right reveal reveal-5">
-            <div className="visual-frame" ref={visualFrameRef}>
-              <img 
-                src="/cover.png" 
-                alt="Shivnem Graphics Work" 
-                className="visual-img"
-              />
-              
-              <div className="floating-dot floating-dot-1" aria-hidden="true"></div>
-              <div className="floating-dot floating-dot-2" aria-hidden="true"></div>
-              <div className="floating-dot floating-dot-3" aria-hidden="true"></div>
+
+            <div className="feature-card reveal delay-2">
+              <h4>Fast Turnaround</h4>
+              <p>Agile workflows ensure fast delivery without sacrificing quality.</p>
             </div>
+
+            <div className="feature-card reveal delay-3">
+              <h4>Creative Design</h4>
+              <p>In-house designers craft visuals that amplify your brand.</p>
+            </div>
+
+            
+  <div className="feature-card reveal delay-4">
+    <h4>Custom Solutions</h4>
+    <p>Tailored print systems designed around your brand's needs.</p>
+  </div>
+
+  <div className="feature-card reveal delay-5">
+    <h4>Sustainable Printing</h4>
+    <p>Eco-responsible materials delivering exceptional quality.</p>
+  </div>
+
+  <div className="feature-card reveal delay-6">
+    <h4>Color Proofing</h4>
+    <p>Advanced proofing ensures perfect color matching every time.</p>
+  </div>
+
           </div>
 
         </div>
+
+        {/* RIGHT SIDE VISUAL */}
+        <div className="about-right reveal delay-3">
+          <div className="visual-frame" ref={visualFrameRef}>
+            <div className="visual-inner">
+              <img src="/cover.png" alt="Shivnem Graphics Work" />
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
