@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import gsap from 'gsap';
@@ -11,7 +11,7 @@ import Footer from '../../components/layout/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ServicesPage() {
+function ServicesContent() {
   const [activeService, setActiveService] = useState(SERVICES_DATA[0]);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const carouselRef = useRef(null);
@@ -287,9 +287,15 @@ export default function ServicesPage() {
                 </div>
             </div>
         </section>
-      </div>
-
-      <Footer />
+    </div>
     </div>
   );
+}
+
+export default function ServicesPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+            <ServicesContent />
+        </Suspense>
+    );
 }
