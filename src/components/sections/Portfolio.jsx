@@ -20,7 +20,7 @@ const Portfolio = () => {
       title: 'Corporate Branding Package',
       category: 'corporate',
       description: 'Complete branding solution for ABC Corp',
-      image: '🏢',
+      image: '/SGcol/sgvc12.png',
       client: 'ABC Corporation',
       services: ['Logo Design', 'Business Cards', 'Brochures']
     },
@@ -28,7 +28,7 @@ const Portfolio = () => {
       title: 'Luxury Wedding Collection',
       category: 'wedding',
       description: 'Premium wedding invitation suite',
-      image: '💒',
+      image: '/SGcol/SGP6.png',
       client: 'Sharma Family',
       services: ['Invitations', 'RSVP Cards', 'Thank You Notes']
     },
@@ -36,7 +36,7 @@ const Portfolio = () => {
       title: 'Tech Conference Materials',
       category: 'events',
       description: 'Event branding and materials',
-      image: '🎪',
+      image: '/SGcol/SGP7.png',
       client: 'TechCon 2025',
       services: ['Banners', 'Badges', 'Brochures']
     },
@@ -44,7 +44,7 @@ const Portfolio = () => {
       title: 'Product Packaging Design',
       category: 'packaging',
       description: 'Premium product packaging solution',
-      image: '📦',
+      image: '/SGcol/SGP5.png',
       client: 'Organic Foods Ltd',
       services: ['Package Design', 'Labels', 'Boxes']
     },
@@ -52,7 +52,7 @@ const Portfolio = () => {
       title: 'Annual Report Design',
       category: 'corporate',
       description: 'Financial report design and print',
-      image: '📊',
+      image: '/SGcol/sgvc16.png',
       client: 'Finance Corp',
       services: ['Report Design', 'Infographics', 'Print Production']
     },
@@ -60,7 +60,7 @@ const Portfolio = () => {
       title: 'Event Backdrop Design',
       category: 'events',
       description: 'Large format event materials',
-      image: '🎭',
+      image: '/SGcol/SGP4.png',
       client: 'Cultural Festival 2025',
       services: ['Backdrop Design', 'Banners', 'Promotional Materials']
     }
@@ -105,7 +105,7 @@ const Portfolio = () => {
               className="group relative overflow-hidden rounded-2xl h-full transition-all duration-300 bg-white border border-[#BBDEFB] hover:border-[#2196F3] card-lift hover:shadow-lg"
             >
               <div className="relative h-48 sm:h-64 bg-[#E3F2FD] flex items-center justify-center overflow-hidden">
-                <span className="text-6xl sm:text-8xl">{item.image}</span>
+                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
               </div>
 
               <div className="p-4 sm:p-8 relative z-10">

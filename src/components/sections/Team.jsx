@@ -1,70 +1,194 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import './team.css';
 
 const Team = () => {
-    const titleRef = useScrollAnimation();
-    const subtitleRef = useScrollAnimation();
-    const [hoveredMember, setHoveredMember] = useState(null);
+  const titleRef = useScrollAnimation();
+  const subtitleRef = useScrollAnimation();
+  const [hoveredMember, setHoveredMember] = useState(null);
+  const [flippedCard, setFlippedCard] = useState(null);
+  const teamGridRef = useRef(null);
 
   const teamMembers = [
-    { name: 'Shivam Kumar', position: 'CEO & Creative Head', bio: '20+ years pioneering excellence in printing and branding solutions', expertise: ['Business Strategy', 'Innovation Leadership', 'Client Relations'], avatar: '👨🏽‍💼' },
-    { name: 'Aditya Sharma', position: 'Production Director', bio: 'Expert in advanced printing technologies and quality control', expertise: ['Production Management', 'Quality Assurance', 'Technical Innovation'], avatar: '👨🏽‍🔧' },
-    { name: 'Ananya Patel', position: 'Design Director', bio: 'Award-winning designer with expertise in brand identity', expertise: ['Creative Design', 'Brand Strategy', 'Art Direction'], avatar: '👩🏽‍🎨' },
-    { name: 'Vikram Singh', position: 'Operations Head', bio: 'Specializes in streamlining processes and client satisfaction', expertise: ['Operations Management', 'Process Optimization', 'Team Leadership'], avatar: '👨🏽‍🔧' },
-    { name: 'Priya Mehta', position: 'Client Success Manager', bio: 'Dedicated to delivering exceptional client experiences', expertise: ['Client Relations', 'Project Management', 'Communication'], avatar: '👩🏽‍💼' },
-    { name: 'Rahul Desai', position: 'Technical Lead', bio: 'Expert in digital and offset printing technologies', expertise: ['Digital Printing', 'Color Management', 'Technical Support'], avatar: '👨🏽‍🔧' }
+    { 
+      name: 'Shivam Kumar', 
+      position: 'CEO & Creative Head', 
+      bio: '20+ years pioneering excellence in printing and branding solutions', 
+      expertise: ['Business Strategy', 'Innovation Leadership', 'Client Relations'], 
+      avatar: '👨🏽‍💼',
+      color: '#E3F2FD',
+      accentColor: '#2196F3'
+    },
+    { 
+      name: 'Aditya Sharma', 
+      position: 'Production Director', 
+      bio: 'Expert in advanced printing technologies and quality control', 
+      expertise: ['Production Management', 'Quality Assurance', 'Technical Innovation'], 
+      avatar: '👨🏽‍🔧',
+      color: '#F3E5F5',
+      accentColor: '#9C27B0'
+    },
+    { 
+      name: 'Ananya Patel', 
+      position: 'Design Director', 
+      bio: 'Award-winning designer with expertise in brand identity', 
+      expertise: ['Creative Design', 'Brand Strategy', 'Art Direction'], 
+      avatar: '👩🏽‍🎨',
+      color: '#FCE4EC',
+      accentColor: '#E91E63'
+    },
+    { 
+      name: 'Vikram Singh', 
+      position: 'Operations Head', 
+      bio: 'Specializes in streamlining processes and client satisfaction', 
+      expertise: ['Operations Management', 'Process Optimization', 'Team Leadership'], 
+      avatar: '👨🏽‍🔧',
+      color: '#E0F2F1',
+      accentColor: '#00897B'
+    },
+    { 
+      name: 'Priya Mehta', 
+      position: 'Client Success Manager', 
+      bio: 'Dedicated to delivering exceptional client experiences', 
+      expertise: ['Client Relations', 'Project Management', 'Communication'], 
+      avatar: '👩🏽‍💼',
+      color: '#FFF3E0',
+      accentColor: '#FF9800'
+    },
+    { 
+      name: 'Rahul Desai', 
+      position: 'Technical Lead', 
+      bio: 'Expert in digital and offset printing technologies', 
+      expertise: ['Digital Printing', 'Color Management', 'Technical Support'], 
+      avatar: '👨🏽‍🔧',
+      color: '#E8F5E9',
+      accentColor: '#4CAF50'
+    }
   ];
 
-  return (
-    <section id="team" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28">
-      {/* Light magenta solid background */}
-      <div className="absolute inset-0 opacity-0 -z-10" />
-      <div className="absolute top-1/2 left-0 w-96 h-96 opacity-0 -z-10" />
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const teamCards = entry.target.querySelectorAll('.team-member-card');
+            teamCards.forEach((card, index) => {
+              setTimeout(() => {
+                card.classList.add('animate-in');
+              }, index * 120);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20 scroll-animate" ref={titleRef}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3" style={{ color: '#000080' }}>Our Team</h2>
-          <p className="max-w-2xl mx-auto scroll-animate" ref={subtitleRef} style={{ color: 'var(--text-on-light-muted)' }}>Meet the experts behind our quality service</p>
+    if (teamGridRef.current) {
+      observer.observe(teamGridRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleCardClick = (index) => {
+    setFlippedCard(flippedCard === index ? null : index);
+  };
+
+  return (
+    <section id="team" className="team-section">
+      {/* Decorative Background Elements */}
+      <div className="team-blob team-blob-1"></div>
+      <div className="team-blob team-blob-2"></div>
+      <div className="team-blob team-blob-3"></div>
+
+      <div className="team-container">
+        <div className="team-header scroll-animate" ref={titleRef}>
+          <h2>Our Team</h2>
+          <p className="scroll-animate" ref={subtitleRef}>
+            Meet the experts behind our quality service
+          </p>
         </div>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="team-grid" ref={teamGridRef}>
           {teamMembers.map((member, idx) => (
-            <article
+            <div
               key={idx}
+              className={`team-member-card ${flippedCard === idx ? 'flipped' : ''}`}
               onMouseEnter={() => setHoveredMember(idx)}
               onMouseLeave={() => setHoveredMember(null)}
-              className="group relative overflow-hidden rounded-2xl p-6 sm:p-8 h-full transition-all duration-300 bg-white border border-[#FFD1E6] hover:border-[#FF2D95] card-lift scroll-animate"
+              onClick={() => handleCardClick(idx)}
+              style={{ 
+                '--member-color': member.color,
+                '--accent-color': member.accentColor
+              }}
             >
-              {/* Color overlay based on index */}
-                <div className="relative z-10">
-                  {/* Avatar */}
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full grid place-items-center text-3xl sm:text-4xl bg-[#FF2D95] text-white shadow-glow group-hover:scale-110 transition-transform duration-300 mb-4">
-                    {member.avatar}
+              <div className="card-inner">
+                {/* Front of Card */}
+                <div className="card-front">
+                  <div className="card-background-pattern"></div>
+                  
+                  <div className="member-avatar-wrapper">
+                    <div className="avatar-glow"></div>
+                    <div className="member-avatar">
+                      {member.avatar}
+                    </div>
                   </div>
 
-                  {/* Name and Position */}
-                  <h3 className="text-lg sm:text-xl font-bold text-[#000080] transition-colors duration-300 mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-sm text-[#FF2D95] font-semibold mb-3">{member.position}</p>
+                  <div className="member-info">
+                    <h3>{member.name}</h3>
+                    <p className="member-position">{member.position}</p>
+                  </div>
 
-                  {/* Bio */}
-                  <p className="text-sm text-[#475569] mb-4">{member.bio}</p>
-
-                  {/* Expertise Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {member.expertise.map((e, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 rounded-full text-xs bg-[#FFF0F6] border border-[#FFD0E6] text-[#FF2D95] transition-all duration-300"
-                      >
-                        {e}
-                      </span>
-                    ))}
+                  <div className="card-footer">
+                    <span className="flip-hint">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 11a5 5 0 110-10 5 5 0 010 10z"/>
+                        <path d="M8 5.5a.5.5 0 01.5.5v3.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z"/>
+                      </svg>
+                      Tap for details
+                    </span>
                   </div>
                 </div>
-            </article>
+
+                {/* Back of Card */}
+                <div className="card-back">
+                  <div className="card-back-content">
+                    <p className="member-bio">{member.bio}</p>
+                    
+                    <div className="expertise-section">
+                      <h4>Expertise</h4>
+                      <div className="expertise-tags">
+                        {member.expertise.map((skill, i) => (
+                          <span 
+                            key={i} 
+                            className="expertise-tag"
+                            style={{ animationDelay: `${i * 0.1}s` }}
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <button className="back-button" onClick={(e) => {
+                      e.stopPropagation();
+                      setFlippedCard(null);
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 11a5 5 0 110-10 5 5 0 010 10z"/>
+                        <path d="M10.5 8a.5.5 0 01-.5.5H6a.5.5 0 010-1h4a.5.5 0 01.5.5z"/>
+                      </svg>
+                      Back
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hover Glow Effect */}
+              <div className="card-glow-effect"></div>
+            </div>
           ))}
         </div>
       </div>

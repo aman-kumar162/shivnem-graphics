@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Layout Components
 import Loader from '@/components/layout/Loader';
-import Navbar from '@/components/layout/Navbar';
 
 // Section Components
 import Hero from '@/components/sections/Hero';
@@ -63,7 +62,6 @@ export default function Home() {
     <>
      
       <main className="min-h-screen">
-         <Navbar />
         <PremiumHero/>
        
          <About />

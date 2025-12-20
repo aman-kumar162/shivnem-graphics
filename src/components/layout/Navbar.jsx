@@ -2,9 +2,14 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTheme } from '../../context/ThemeContext';
 import '../css/navbar-hero.css'
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const { isDark } = useTheme();
   const navRef = useRef(null);
   const menuRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -70,21 +75,23 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 max-h-[100px] left-0 w-full z-50 transition-all duration-300 backdrop-blur-sm ${hasScrolled ? 'shadow-2xl py-3' : 'py-4'}`}
-      style={{ backgroundColor: 'rgba(15,23,42,0.95)' }}
+      className={`fixed top-0 max-h-[100px] left-0 w-full z-[999] transition-all duration-300 backdrop-blur-sm ${
+        isDark ? 'bg-midnight-navy/95' : 'bg-[#e7d9cc]/95'
+      } ${hasScrolled ? 'shadow-2xl py-3' : 'py-4'}`}
     >
       <div className="container mx-auto px-7 max-w-[1300px] flex items-center justify-between">
           <div 
-            className="nav-logo flex items-center gap-3 cursor-pointer"
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              setActiveSection('about');
-            }}
+            className="flex items-center gap-3 "
           >
           <img src="/sg.png" alt="Shivnem Graphics Logo" className="w-10 h-10 sm:w-12 sm:h-12" />
           <div className="flex flex-col" style={{ lineHeight: '1.2' }}>
-            <h2 className="text-base sm:text-lg font-bold text-white" style={{ marginBottom: '2px' }}>Shivnem Graphics</h2>
-            <span className="text-xs" style={{ color: 'var(--blue)' }}>Premium Solutions</span>
+            <h2 className={`text-base sm:text-lg font-bold ${isDark ? 'text-white' : 'text-[#4a4e4d]'}`} style={{ marginBottom: '2px' }}>Shivnem Graphics</h2>
+            <span 
+              className="text-xs font-semibold bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent" 
+              style={{ textShadow: '0 2px 10px rgba(100, 181, 246, 0.4)' }}
+            >
+              Committed to Excellence
+            </span>
           </div>
       </div>
         
@@ -92,37 +99,56 @@ const Navbar = () => {
           ref={menuRef}
           className={`nav-menu md:flex items-center space-x-1 lg:space-x-2 ${
             isMenuOpen
-                ? 'absolute top-full left-0 w-full bg-gradient-to-r from-slate-900 via-[var(--theme-accent)] to-[var(--theme-accent-2)] shadow-2xl py-4 px-4 space-y-3 md:space-y-0 md:space-x-1 mt-0.5'
+                ? `absolute top-full left-0 w-full ${isDark ? 'bg-midnight-navy' : 'bg-[#e7d9cc]'} shadow-2xl py-4 px-4 space-y-3 md:space-y-0 md:space-x-1 mt-0.5`
                 : 'hidden md:flex'
           }`}
         >
           {['about', 'services', 'products', 'portfolio', 'process', 'team', 'contact'].map((item) => (
             <li key={item}>
-              <a
-                href={`#${item}`}
-                className={`text-white hover:text-white px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium ${
-                  activeSection === item ? 'active' : ''
-                }`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById(item)?.scrollIntoView({ behavior: 'smooth' });
-                  setIsMenuOpen(false);
-                  setActiveSection(item);
-                }}
-              >
-                {item}
-              </a>
+              {item === 'about' ? (
+                <Link
+                  href="/about"
+                  className={`px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium ${
+                    isDark 
+                      ? `text-off-white hover:text-bright-teal ${pathname === '/about' ? 'text-bright-teal' : ''}`
+                      : `text-[#4a4e4d] hover:text-bright-teal ${pathname === '/about' ? 'text-bright-teal font-bold' : ''}`
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              ) : (
+                <a
+                  href={`#${item}`}
+                  className={`px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium ${
+                    isDark
+                      ? `text-off-white hover:text-bright-teal ${activeSection === item && pathname === '/' ? 'text-bright-teal' : ''}`
+                      : `text-[#4a4e4d] hover:text-bright-teal ${activeSection === item && pathname === '/' ? 'text-bright-teal font-bold' : ''}`
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (pathname === '/') {
+                      document.getElementById(item)?.scrollIntoView({ behavior: 'smooth' });
+                      setActiveSection(item);
+                    } else {
+                      window.location.href = `/#${item}`;
+                    }
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  {item}
+                </a>
+              )}
             </li>
           ))}
         </ul>
 
         <div className="flex items-center space-x-2 sm:space-x-4">
           <button 
-            className="hidden md:block relative px-6 py-2 rounded-lg font-semibold text-white overflow-hidden transition-all duration-300 group"
-            style={{ 
-              background: 'linear-gradient(45deg, #C2185B, #E65100)',
-              boxShadow: '0 4px 15px rgba(194, 24, 91, 0.4)'
-            }}
+            className={`hidden md:block relative px-6 py-2 rounded-lg font-semibold text-white overflow-hidden transition-all duration-300 group shadow-lg hover:shadow-xl ${
+              isDark ? 'bg-crimson-red' : 'bg-gradient-to-r from-crimson-red to-orange-500'
+            }`}
+
             onClick={() => {
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
             }}
@@ -150,13 +176,13 @@ const Navbar = () => {
             aria-label="Toggle menu"
           >
             <div className={`hamburger-icon ${isMenuOpen ? 'active' : ''}`}>
-              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${isDark ? 'bg-white' : 'bg-[#4a4e4d]'} ${
                 isMenuOpen ? 'rotate-45 translate-y-1.5' : ''
               }`} />
-              <span className={`block w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${
+              <span className={`block w-6 h-0.5 ${isDark ? 'bg-white' : 'bg-[#4a4e4d]'} my-1.5 transition-all duration-300 ${
                 isMenuOpen ? 'opacity-0' : ''
               }`} />
-              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${isDark ? 'bg-white' : 'bg-[#4a4e4d]'} ${
                 isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
               }`} />
             </div>

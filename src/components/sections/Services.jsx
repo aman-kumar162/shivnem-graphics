@@ -3,76 +3,113 @@ import '../css/service.css';
 
 const SERVICES = [
   {
-    id: 'printing-services',
-    name: 'Printing Services',
-    icon: '🖨️',
-    description: 'Comprehensive printing solutions from digital to traditional printing methods. We offer high-quality printing for wedding cards, business materials, marketing collateral, and more with professional finishing options including embossing, foil stamping, and UV coating.',
+    id: 'digital-printing',
+    name: 'Digital Printing',
+    icon: '🖥️',
+    image: '/SGcol/SGP2.png',
+    description: 'High-quality digital printing with fast turnaround times. Specializing in 12x18 and 13x19 formats with weights ranging from 170gsm to 350gsm.',
     categories: [
       {
-        title: 'Wedding & Invitation Cards',
-        icon: '💝',
+        title: 'Formats & Sizes',
+        icon: '📏',
         items: [
-          'Custom Wedding Card Creation',
-          'Matrimonial Invitation Printing',
-          'Wedding Invite Printing Solutions',
-          'Bridal Card Printing Service',
-          'Nuptial Card Production',
-          'Wedding Stationery Printing',
-          'Ceremony Card Printing',
+          '12x18 Size Printing',
+          '13x19 Size Printing',
+          'Custom Size Cuts',
         ],
       },
       {
-        title: 'Business & Professional',
-        icon: '💼',
+        title: 'Paper Weights (GSM)',
+        icon: '⚖️',
         items: [
-          'Professional Business Card Printing',
-          'Printed Visiting Cards',
-          'Name Card Printing',
-          'Personalized Visiting Card Printing',
-          'Bill Book Printing Services',
-          'Custom Bill Book Services',
+          '170 GSM Standard',
+          '250 GSM Premium',
+          '300 GSM Heavy Duty',
+          '350 GSM Ultra Premium',
         ],
       },
       {
-        title: 'Marketing Materials',
-        icon: '📢',
+        title: 'Media Types',
+        icon: '📄',
         items: [
-          'Brochure Printing Service',
-          'Pamphlet Printing Services',
-          'Banner Printing Service',
-          'Custom Banner Services',
-          'Banner Production Services',
-          'Signage Printing Solutions',
+          'Paper Prints',
+          'Vinyl Prints',
+          'Foil Printing',
+          'Texture Paper',
+          'Gum Sheets',
         ],
       },
     ],
   },
   {
-    id: 'digital-printing',
-    name: 'Digital Printing',
-    icon: '🖥️',
-    description: 'High-quality digital printing with fast turnaround times and vibrant colors. Perfect for short runs, variable data printing, and on-demand projects. Our state-of-the-art digital presses deliver exceptional quality for all your printing needs.',
+    id: 'visiting-cards',
+    name: 'Specialty Visiting Cards',
+    icon: '📇',
+    image: '/SGcol/sgvc10.png',
+    description: 'Premier business cards from standard regular to high-end Metal, PVC, and Velvet finishes. Customized to make a lasting impression.',
     categories: [
       {
-        title: 'Digital Print Services',
-        icon: '🖼️',
+        title: 'Premium Metal Cards',
+        icon: '💿',
         items: [
-          'Digital Screen Printing Services',
-          'Digital Color Printing',
-          'High-Resolution Digital Prints',
-          'Custom Digital Printing',
-          'Digital Print Solutions',
-          'On-Demand Digital Printing',
-          'On-Demand Printing Services',
+          'Gold Finish Metal Cards',
+          'Silver Finish Metal Cards',
+          'S.S. (Stainless Steel) Cards',
+          'Copper Finish Cards',
+          'Minimum Quantity: 50 Cards',
         ],
       },
       {
-        title: 'Specialized Digital',
-        icon: '👕',
+        title: 'Premium 500 GSM',
+        icon: '💎',
         items: [
-          'Print Media Solutions',
-          'Direct To Garment Printing',
-          'Custom Apparel Printing',
+          '500 GSM + Velvet Coating',
+          '500 GSM + Matt Finish',
+          '500 GSM + Drip-Off UV',
+          'Minimum Quantity: 500 Cards',
+        ],
+      },
+      {
+        title: 'NT / PVC Cards',
+        icon: '💳',
+        items: [
+          '800 Micron Fusing',
+          'Velvet / Matt Texture',
+          'Silver / Gold PVC',
+          'Transparent 250/180 Micron',
+        ],
+      },
+      {
+        title: 'Regular Visiting Cards',
+        icon: '🏠',
+        items: [
+          'Matt Lamination + UV',
+          'Matt Lamination + Texture',
+          'Gloss Coated + Texture',
+          'Gloss Lamination / Coated',
+          'Without Lamination Options',
+          'Minimum Quantity: 1000 Cards',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'offset-printing',
+    name: 'Offset Printing',
+    icon: '⚙️',
+    image: '/SGcol/SGP5.png',
+    description: 'Large-volume offset printing for commercial needs. Ideal for pamphlets, posters, and high-quality letterheads with precision color matching.',
+    categories: [
+      {
+        title: 'Commercial Collateral',
+        icon: '📄',
+        items: [
+          'Pamphlets & Flyers',
+          'Posters & Posters',
+          'Corporate Letter Heads',
+          'Company Envelopes',
+          'Brochures & Catalogues',
+          'Bill Books & Registers',
         ],
       },
     ],
@@ -81,137 +118,83 @@ const SERVICES = [
     id: 'screen-printing',
     name: 'Screen Printing',
     icon: '🎨',
-    description: 'Premium screen printing services for textiles, signage, and custom merchandise. We use advanced techniques and high-quality inks to ensure vibrant, long-lasting prints on various materials including fabric, metal, and plastic.',
+    image: '/SGcol/SGP6.png',
+    description: 'Specialized surface printing for unique materials. We print on everything from wedding cards to wood and aluminium panels.',
     categories: [
       {
-        title: 'Screen Print Techniques',
+        title: 'Surface Specialty',
         icon: '🖌️',
         items: [
-          'Screen Printing Service',
-          'Precision Screen Printing',
-          'Advanced Screen Printing Services',
-          'High Resolution Screen Printing',
-          'Modern Screen Printing Techniques',
-          'Stenciling Printing Services',
-          'Serigraphy Printing Services',
+          'Wedding & Inv. Cards',
+          'Shagun Envelopes',
+          'Cloth & Fabric Printing',
+          'Wood Surface Printing',
+          'Aluminium Panels',
+          'Scientific Instruments',
         ],
       },
     ],
   },
   {
-    id: 'offset-printing',
-    name: 'Offset Surface Printing',
-    icon: '⚙️',
-    description: 'Large-volume offset printing with consistent quality and color accuracy. Ideal for magazines, catalogues, brochures, and high-volume commercial printing projects. We offer both sheetfed and web offset printing with premium finishing options.',
+    id: 'flex-vinyl',
+    name: 'Flex & Vinyl',
+    icon: '🏁',
+    image: '/SGcol/SGP7.png',
+    description: 'Large format outdoor advertising solutions. Durable banners, posters, and high-resolution photographs for all media needs.',
     categories: [
       {
-        title: 'Offset Services',
-        icon: '🏭',
+        title: 'Outdoor Advertising',
+        icon: '📢',
         items: [
-          'Sheetfed Offset Printing',
-          'Web Offset Printing',
-          'Commercial Printing',
-          'High Volume Production',
-          'Catalogue Printing',
-          'Magazine Printing',
-        ],
-      },
-      {
-        title: 'Finishing Options',
-        icon: '✨',
-        items: [
-          'Spot UV Coating',
-          'Embossing & Debossing',
-          'Foil Stamping',
-          'Lamination Services',
+          'High-Res Banners',
+          'Flex Posters',
+          'Advertising Media',
+          'Large Photographs',
+          'Vinyl Stickers',
+          'Banner Mounting',
         ],
       },
     ],
   },
   {
-    id: 'web-development',
-    name: 'Web Development',
-    icon: '💻',
-    description: 'Full-stack web development from design to deployment with modern technologies. We create responsive, fast, and SEO-friendly websites, e-commerce platforms, and custom web applications tailored to your business needs with cutting-edge features.',
+    id: 'specialty-printing',
+    name: 'Specialty Services',
+    icon: '✨',
+    image: '/SGcol/SGST-1.png',
+    description: 'Other specialized printing services including DTF UV transfers, garment tags, and official documentation framing.',
     categories: [
       {
-        title: 'Website Development',
-        icon: '🌐',
+        title: 'Tags & Stickers',
+        icon: '🏷️',
         items: [
-          'Corporate Website Design',
-          'E-commerce Development',
-          'School & Educational Websites',
-          'Portfolio Websites',
-          'Landing Page Design',
-          'Responsive Web Design',
+          'DTF UV Transfer Stickers',
+          'Garment Tags & Labels',
+          'ATM Pouches',
+          'Plate & Stickers',
         ],
       },
       {
-        title: 'Web Applications',
-        icon: '🖧',
+        title: 'Official & Personal',
+        icon: '📂',
         items: [
-          'CRM Development',
-          'Custom Web Applications',
-          'Content Management Systems',
-          'Database Integration',
-          'API Development',
-        ],
-      },
-      {
-        title: 'Advanced Features',
-        icon: '🤖',
-        items: [
-          'AI Chatbot Integration',
-          'Payment Gateway Integration',
-          'SEO Optimization',
-          'Performance Optimization',
-          'Security Implementation',
+          'Doctor Files Printing',
+          'Photograph Framing',
+          'Copier & Paper Services',
+          'Multicolored Envelopes',
         ],
       },
     ],
   },
-  {
-    id: 'digital-marketing',
-    name: 'Digital Marketing',
-    icon: '📊',
-    description: 'Strategic digital marketing services to grow your brand and reach your target audience. From SEO and paid advertising to social media marketing and content strategy, we help businesses achieve measurable results and maximize ROI.',
-    categories: [
-      {
-        title: 'SEO Services',
-        icon: '🔍',
-        items: [
-          'Search Engine Optimization',
-          'Local SEO',
-          'Technical SEO',
-          'On-Page Optimization',
-          'Off-Page SEO',
-          'Keyword Research',
-        ],
-      },
-      {
-        title: 'Paid Advertising',
-        icon: '💰',
-        items: [
-          'Google Ads Campaigns',
-          'Social Media Advertising',
-          'Display Advertising',
-          'Retargeting Campaigns',
-          'PPC Management',
-        ],
-      },
-      {
-        title: 'Content & Social',
-        icon: '📱',
-        items: [
-          'Social Media Marketing',
-          'Content Marketing',
-          'Email Marketing',
-          'Brand Strategy',
-          'Analytics & Reporting',
-        ],
-      },
-    ],
-  },
+];
+
+
+const DAILY_SERVICES = [
+  'Digital Printing', 'Wedding & Inv. Cards', 'Pen / Round Printing', 
+  'Screen Printing', 'Pamphlets / Leaflets', 'Cloth / Bag Printing',
+  'Vinyl / Flex Banners', 'ATM Pouches', 'Garment Tags',
+  'Doctor Files', 'Photo Framing', 'Letter Heads',
+  'Bill Books', 'Scientific Instruments', 'Aluminium Panels',
+  'DTF UV Stickers'
 ];
 
 export default function Services() {
@@ -300,6 +283,15 @@ export default function Services() {
           
         </div>
 
+        <div className="daily-services-container">
+          <div className="daily-services-label">Our Core Printing Services</div>
+          <div className="daily-services-tags">
+            {DAILY_SERVICES.map((service, idx) => (
+              <span key={idx} className="daily-service-tag">{service}</span>
+            ))}
+          </div>
+        </div>
+
         <div className="services-grid">
           {SERVICES.map((service) => (
             <div
@@ -311,7 +303,7 @@ export default function Services() {
               onClick={(e) => handleCardClick(service.id, e)}
             >
               <div className="card-image">
-                <img src="/sg.png" alt={service.name} />
+                <img src={service.image} alt={service.name} />
               </div>
               <div className="card-content">
                 <h3 className="card-title">{service.name}</h3>

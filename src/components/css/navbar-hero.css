@@ -96,7 +96,6 @@ nav.shadow-2xl .nav-logo {
     position: relative;
     padding: 8px 12px !important;
     border-radius: 10px !important;
-    color: #fff !important;
     text-decoration: none;
     font-weight: 600;
     transition: color 200ms ease, transform 200ms ease !important;
@@ -143,7 +142,6 @@ nav.shadow-2xl .nav-logo {
     overflow: hidden !important;
     max-height: 0 !important;
     opacity: 0 !important;
-    background: rgba(15, 23, 42, 0.96) !important;
     backdrop-filter: blur(10px) !important;
     transform-origin: top center !important;
     transition: max-height 360ms cubic-bezier(.2, .9, .3, 1), opacity 240ms ease !important;

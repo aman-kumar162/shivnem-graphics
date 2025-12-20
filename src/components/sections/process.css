@@ -1,0 +1,319 @@
+/* Modern Process Section Styles */
+.process-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 80px 20px;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* Decorative Background Blobs */
+.process-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  z-index: 0;
+  animation: float-blob 20s ease-in-out infinite;
+}
+
+.process-blob-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #FF6B6B, #FF8E53);
+  top: 5%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.process-blob-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #4ECDC4, #44A08D);
+  bottom: 10%;
+  right: -15%;
+  animation-delay: 7s;
+}
+
+.process-blob-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #F7971E, #FFD200);
+  top: 40%;
+  right: 10%;
+  animation-delay: 14s;
+}
+
+@keyframes float-blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(50px, -30px) scale(1.1);
+  }
+  66% {
+    transform: translate(-30px, 50px) scale(0.9);
+  }
+}
+
+/* Container */
+.process-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.process-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.process-header h2 {
+  font-size: clamp(32px, 5vw, 54px);
+  font-weight: 800;
+  color: #000080;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.process-header p {
+  font-size: clamp(14px, 2vw, 18px);
+  color: #64748b;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Steps Wrapper */
+.process-steps-wrapper {
+  position: relative;
+  padding: 40px 0;
+}
+
+/* Connector Line */
+.process-connector-line {
+  position: absolute;
+  top: 100px;
+  left: 5%;
+  width: 90%;
+  height: 4px;
+  z-index: 0;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Steps Grid */
+.process-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Individual Step Card */
+.process-step-card {
+  background: white;
+  border-radius: 24px;
+  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.process-step-card.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.process-step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2196F3, #42A5F5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.process-step-card:hover::before {
+  transform: scaleX(1);
+}
+
+.process-step-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(33, 150, 243, 0.15),
+    0 10px 20px rgba(0, 0, 0, 0.08);
+  border-color: rgba(33, 150, 243, 0.2);
+}
+
+/* Icon Wrapper */
+.step-icon-wrapper {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.step-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: var(--step-color, #E3F2FD);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  position: relative;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.08),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.process-step-card:hover .step-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 
+    0 12px 24px rgba(0, 0, 0, 0.12),
+    inset 0 -3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.icon-emoji {
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Step Number Badge */
+.step-number {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 4px 12px rgba(33, 150, 243, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(33, 150, 243, 0.6);
+  }
+}
+
+/* Step Content */
+.step-content h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000080;
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+
+.step-content p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #64748b;
+  font-weight: 400;
+}
+
+/* Decorative Corner */
+.step-corner-decoration {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, transparent 50%, rgba(33, 150, 243, 0.05) 50%);
+  border-radius: 24px 0 24px 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.process-step-card:hover .step-corner-decoration {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .process-steps-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+
+  .process-connector-line {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .process-section {
+    padding: 60px 20px;
+  }
+
+  .process-header {
+    margin-bottom: 50px;
+  }
+
+  .process-steps-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .process-blob {
+    filter: blur(60px);
+    opacity: 0.1;
+  }
+
+  .process-step-card {
+    padding: 28px 20px;
+  }
+
+  .step-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 32px;
+  }
+
+  .step-content h3 {
+    font-size: 17px;
+  }
+
+  .step-content p {
+    font-size: 12px;
+  }
+}

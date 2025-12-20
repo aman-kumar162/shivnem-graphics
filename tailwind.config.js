@@ -35,6 +35,10 @@ module.exports = {
         'teal-600': 'var(--color-teal-600)',
         'teal-700': 'var(--color-teal-700)',
         'teal-800': 'var(--color-teal-800)',
+        'midnight-navy': '#0A1128',
+        'crimson-red': '#E31E24',
+        'bright-teal': '#00ADEF',
+        'off-white': '#F5F5F5',
       },
       fontSize: {
         ...defaultTheme.fontSize,

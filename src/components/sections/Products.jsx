@@ -24,42 +24,42 @@ const Products = () => {
       category: 'business-cards',
       description: 'High-quality business cards with spot UV',
       price: '₹499/100pcs',
-      image: '🃏'
+      image: '/SGcol/sgvc10.png'
     },
     {
       title: 'Luxury Wedding Cards',
       category: 'wedding-invitations',
       description: 'Elegant wedding invitations',
       price: '₹50/pc',
-      image: '💌'
+      image: '/SGcol/SGP6.png'
     },
     {
       title: 'Corporate Brochures',
       category: 'brochures',
       description: 'Professional company brochures',
       price: '₹999/100pcs',
-      image: '📔'
+      image: '/SGcol/SGP5.png'
     },
     {
       title: 'Outdoor Banners',
       category: 'banners',
       description: 'Weather-resistant vinyl banners',
       price: '₹80/sqft',
-      image: '🎯'
+      image: '/SGcol/SGP7.png'
     },
     {
       title: 'Custom Packaging',
       category: 'packaging',
       description: 'Branded product packaging',
       price: 'Custom Quote',
-      image: '📦'
+      image: '/SGcol/SGP4.png'
     },
     {
       title: 'Promotional Items',
       category: 'promotional',
       description: 'Custom promotional products',
       price: 'Varies',
-      image: '🎁'
+      image: '/SGcol/SGST-1.png'
     },
   ];
 
@@ -109,9 +109,7 @@ const Products = () => {
               data-category={product.category}
             >
               <div className="relative aspect-video bg-[#FFF3E0] flex items-center justify-center overflow-hidden">
-                <div className="text-6xl product-icon group-hover:scale-110 transition-transform duration-300">
-                  {product.image}
-                </div>
+                <img src={product.image} alt={product.title} className="w-full h-full object-cover product-icon group-hover:scale-110 transition-transform duration-300" />
 
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
                   <button 

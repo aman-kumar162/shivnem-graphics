@@ -1,78 +1,131 @@
 'use client';
+import { useEffect, useRef } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import './process.css';
 
 const Process = () => {
   const titleRef = useScrollAnimation();
   const subtitleRef = useScrollAnimation();
+  const stepsContainerRef = useRef(null);
 
   const steps = [
     {
       number: '01',
       title: 'Consultation',
       description: 'We discuss your requirements, budget, and timeline to understand your vision.',
-      icon: '💭'
+      icon: '💭',
+      color: '#E3F2FD'
     },
     {
       number: '02',
       title: 'Design & Proof',
       description: 'Our expert designers create concepts and provide digital proofs for your approval.',
-      icon: '🎨'
+      icon: '🎨',
+      color: '#F3E5F5'
     },
     {
       number: '03',
       title: 'Production',
       description: 'Using state-of-the-art technology, we bring your designs to life with precision.',
-      icon: '⚙️'
+      icon: '⚙️',
+      color: '#FFF3E0'
     },
     {
       number: '04',
       title: 'Quality Check',
       description: 'Every item undergoes rigorous quality inspection before final packaging.',
-      icon: '✓'
+      icon: '✓',
+      color: '#E8F5E9'
     },
     {
       number: '05',
       title: 'Delivery',
       description: 'Your premium products are carefully packaged and delivered to your doorstep.',
-      icon: '🚚'
+      icon: '🚚',
+      color: '#FCE4EC'
     }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const stepCards = entry.target.querySelectorAll('.process-step-card');
+            stepCards.forEach((card, index) => {
+              setTimeout(() => {
+                card.classList.add('animate-in');
+              }, index * 150);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (stepsContainerRef.current) {
+      observer.observe(stepsContainerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="process" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-0 -z-10" />
+    <section id="process" className="process-section">
+      {/* Decorative Background Blobs */}
+      <div className="process-blob process-blob-1"></div>
+      <div className="process-blob process-blob-2"></div>
+      <div className="process-blob process-blob-3"></div>
       
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20 scroll-animate" ref={titleRef}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: '#000080' }}>
-            Our Process
-          </h2>
-          <p className="text-sm sm:text-base lg:text-lg max-w-2xl mx-auto scroll-animate" ref={subtitleRef} style={{ color: 'var(--text-on-light-muted)' }}>
+      <div className="process-container">
+        <div className="process-header scroll-animate" ref={titleRef}>
+          <h2>Our Process</h2>
+          <p className="scroll-animate" ref={subtitleRef}>
             A seamless journey from concept to creation
           </p>
         </div>
 
-        <div className="relative max-w-5xl mx-auto">
-          {/* Connecting Line (Desktop) */}
-          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-brand-2/20 via-brand-2/40 to-brand-2/20 -translate-y-1/2 rounded-full" />
+        <div className="process-steps-wrapper" ref={stepsContainerRef}>
+          {/* Connecting Line */}
+          <svg className="process-connector-line" viewBox="0 0 1200 4" preserveAspectRatio="none">
+            <path
+              d="M 0 2 Q 300 2 600 2 T 1200 2"
+              stroke="url(#lineGradient)"
+              strokeWidth="2"
+              fill="none"
+              strokeDasharray="8 4"
+            />
+            <defs>
+              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#2196F3" stopOpacity="0.2" />
+                <stop offset="50%" stopColor="#2196F3" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#2196F3" stopOpacity="0.2" />
+              </linearGradient>
+            </defs>
+          </svg>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4 relative z-10">
+          <div className="process-steps-grid">
             {steps.map((step, index) => (
               <div 
                 key={index} 
-                className="group relative flex flex-col items-center text-center scroll-animate"
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className="process-step-card"
+                style={{ '--step-color': step.color }}
               >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white shadow-lg border border-brand-2/20 flex items-center justify-center text-3xl sm:text-4xl mb-6 relative z-10 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 group-hover:border-brand-2 group-hover:shadow-glow">
-                  {step.icon}
-                  <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-brand-2 text-white flex items-center justify-center text-sm font-bold shadow-md">
-                    {step.number}
+                <div className="step-icon-wrapper">
+                  <div className="step-icon">
+                    <span className="icon-emoji">{step.icon}</span>
                   </div>
+                  <div className="step-number">{step.number}</div>
                 </div>
                 
-                <h3 className="text-lg sm:text-xl font-bold mb-3" style={{ color: '#000080' }}>{step.title}</h3>
-                <p className="text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-on-light-muted)' }}>{step.description}</p>
+                <div className="step-content">
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+
+                {/* Decorative Corner */}
+                <div className="step-corner-decoration"></div>
               </div>
             ))}
           </div>
