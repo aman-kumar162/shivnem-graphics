@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '../../context/ThemeContext';
+import { SERVICES_DATA } from '../../data/servicesData';
+import Image from 'next/image';
 import '../css/navbar-hero.css'
 
 const Navbar = () => {
@@ -104,7 +106,7 @@ const Navbar = () => {
           }`}
         >
           {['about', 'services', 'products', 'portfolio', 'process', 'team', 'contact'].map((item) => (
-            <li key={item}>
+            <li key={item} className={item === 'services' ? 'relative' : ''}>
               {item === 'about' ? (
                 <Link
                   href="/about"
@@ -117,6 +119,50 @@ const Navbar = () => {
                 >
                   {item}
                 </Link>
+              ) : item === 'services' ? (
+                <div className="group relative">
+                  <a
+                    href={`#${item}`}
+                    className={`px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium ${
+                      isDark
+                        ? `text-off-white hover:text-bright-teal ${activeSection === item && pathname === '/' ? 'text-bright-teal' : ''}`
+                        : `text-[#4a4e4d] hover:text-bright-teal ${activeSection === item && pathname === '/' ? 'text-bright-teal font-bold' : ''}`
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (pathname === '/') {
+                        document.getElementById(item)?.scrollIntoView({ behavior: 'smooth' });
+                        setActiveSection(item);
+                      } else {
+                        window.location.href = `/#${item}`;
+                      }
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    {item}
+                  </a>
+
+                  {/* Desktop hover dropdown */}
+                  <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-full mt-3 z-50 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 opacity-0 transition-all duration-200">
+                    <div className="mx-auto w-[980px] bg-white rounded-2xl shadow-2xl border border-slate-200 p-4">
+                      <div className="grid grid-cols-5 gap-3">
+                        {SERVICES_DATA.map((svc) => (
+                          <Link key={svc.id} href={`/services/${svc.id}`} className="block p-3 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-100 transition-colors">
+                            <div className="h-28 mb-3 bg-slate-100 rounded-md overflow-hidden flex items-center justify-center">
+                              {svc.image ? (
+                                <Image src={svc.image} alt={svc.title} width={420} height={180} className="object-cover w-full h-full" />
+                              ) : (
+                                <div className="text-slate-400">Image</div>
+                              )}
+                            </div>
+                            <div className="font-medium text-sm text-slate-900">{svc.title}</div>
+                            <div className="text-xs text-slate-500 mt-1 line-clamp-2">{svc.shortDescription}</div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <a
                   href={`#${item}`}

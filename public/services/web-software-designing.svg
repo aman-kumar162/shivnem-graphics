@@ -1,0 +1,17 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0099ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#f5f5f5"/>
+  <rect x="40" y="40" width="320" height="220" rx="12" fill="url(#grad2)" opacity="0.1" stroke="#00d4ff" stroke-width="2"/>
+  <rect x="60" y="70" width="120" height="160" rx="4" fill="#00d4ff" opacity="0.3" stroke="#0099ff" stroke-width="2"/>
+  <circle cx="180" cy="100" r="30" fill="#0099ff"/>
+  <rect x="230" y="70" width="100" height="80" rx="6" fill="#00d4ff" opacity="0.2" stroke="#00d4ff" stroke-width="2"/>
+  <line x1="250" y1="180" x2="310" y2="180" stroke="#0099ff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="250" y1="200" x2="300" y2="200" stroke="#0099ff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <circle cx="320" cy="140" r="18" fill="#00d4ff"/>
+  <text x="200" y="280" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">Web Design</text>
+</svg>

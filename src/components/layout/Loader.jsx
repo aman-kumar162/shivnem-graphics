@@ -76,7 +76,7 @@ const Loader = () => {
   return (
     <div 
       ref={loaderRef}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0A0118]"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0A0118]"
     >
       <div className="w-full max-w-md p-8 text-center relative z-10">
         <div className="loader-logo mb-8">

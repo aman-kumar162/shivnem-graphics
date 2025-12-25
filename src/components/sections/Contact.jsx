@@ -1,9 +1,25 @@
 'use client';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const Contact = () => {
+const Contact = ({ service }) => {
   const titleRef = useScrollAnimation();
   const formRef = useScrollAnimation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+      name: form.name.value,
+      phone: form.phone.value,
+      email: form.email.value,
+      message: form.message.value,
+      service: service || null
+    };
+    // For now we only log the enquiry; backend will be added later.
+    console.log('Enquiry submitted:', data);
+    // Optionally reset form
+    form.reset();
+  };
 
   return (
     <section id="contact" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-28">
@@ -56,24 +72,24 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="bg-white/80 p-6 sm:p-8 rounded-2xl shadow-lg backdrop-blur-sm border border-white/20">
-            <form className="space-y-4 sm:space-y-6">
+            <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                  <input type="text" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white" placeholder="Your Name" />
+                  <input name="name" type="text" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white" placeholder="Your Name" required />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                  <input type="tel" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white" placeholder="Your Phone" />
+                  <input name="phone" type="tel" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white" placeholder="Your Phone" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white" placeholder="Your Email" />
+                <input name="email" type="email" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white" placeholder="Your Email" required />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea rows="4" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white" placeholder="Your Message"></textarea>
+                <textarea name="message" rows="4" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white" placeholder="Your Message" />
               </div>
               <button type="submit" className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
                 Send Message
