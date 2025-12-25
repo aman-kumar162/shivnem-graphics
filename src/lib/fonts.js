@@ -1,6 +1,13 @@
 'use client';
 
-import { Inter } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
+
+export const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '900'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
 
 export const neueHaasText = Inter({
   subsets: ['latin'],

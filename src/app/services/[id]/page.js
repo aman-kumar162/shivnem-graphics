@@ -3,8 +3,6 @@ import React, { useRef, useLayoutEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { SERVICES_DATA } from '../../../data/servicesData';
-import Navbar from '../../../components/layout/Navbar';
-import Footer from '../../../components/layout/Footer';
 import Contact from '../../../components/sections/Contact';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -32,61 +30,57 @@ export default function ServiceDetail() {
 
    if (!service) {
       return (
-         <div className="min-h-screen bg-white">
-            <Navbar />
-            <main className="container mx-auto px-4 py-32 text-center">
-               <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
-               <p className="text-slate-600 mb-8">We couldn't find the service you're looking for.</p>
-               <Link href="/services" className="inline-block px-6 py-3 bg-slate-900 text-white rounded-lg">Back to Services</Link>
-            </main>
-            <Footer />
-         </div>
+         <main className="min-h-screen bg-navy-dark">
+            <div className="container mx-auto px-4 py-32 text-center">
+               <h1 className="text-4xl font-bold mb-4 text-white">Service Not Found</h1>
+               <p className="text-gray-300 mb-8">We couldn't find the service you're looking for.</p>
+               <Link href="/services" className="inline-block px-6 py-3 bg-neon-cyan text-navy-dark font-semibold rounded-lg">Back to Services</Link>
+            </div>
+         </main>
       );
    }
 
    return (
-      <div ref={containerRef} className="min-h-screen bg-white">
-         <Navbar />
-
+      <div ref={containerRef} className="min-h-screen bg-navy-dark">
          <main className="container mx-auto px-4 py-20">
             <div className="mb-8">
-               <Link href="/services" className="text-slate-500 hover:text-blue-600">← Back to Services</Link>
+               <Link href="/services" className="text-gray-400 hover:text-neon-cyan">← Back to Services</Link>
             </div>
 
             <header className="mb-12">
-               <h1 className="text-4xl font-bold mb-4">{service.title}</h1>
-               <p className="text-lg text-slate-700">{service.shortDescription}</p>
+               <h1 className="text-4xl font-bold mb-4 text-white">{service.title}</h1>
+               <p className="text-lg text-gray-300">{service.shortDescription}</p>
             </header>
 
             <section className="grid lg:grid-cols-3 gap-8 mb-16">
                <div className="lg:col-span-2">
-                  <h2 className="text-2xl font-semibold mb-4">Overview</h2>
-                  <p className="text-slate-700 leading-relaxed mb-6">{service.description}</p>
+                  <h2 className="text-2xl font-semibold mb-4 text-white">Overview</h2>
+                  <p className="text-gray-300 leading-relaxed mb-6">{service.description}</p>
 
-                  <h3 className="text-xl font-bold mb-3">Sub-Services</h3>
+                  <h3 className="text-xl font-bold mb-3 text-white">Sub-Services</h3>
                   <ul className="list-disc pl-6 space-y-2 mb-6">
                      {service.subServices.map((s, i) => (
-                        <li key={i} className="text-slate-700">{s}</li>
+                        <li key={i} className="text-gray-300">{s}</li>
                      ))}
                   </ul>
 
-                  <h3 className="text-xl font-bold mb-3">Process</h3>
+                  <h3 className="text-xl font-bold mb-3 text-white">Process</h3>
                   <ol className="list-decimal pl-6 space-y-4">
                      {service.process.map((p, i) => (
-                        <li key={i} className="text-slate-700">
-                           <strong className="block text-slate-900">{p.title}</strong>
-                           <span className="text-slate-600">{p.desc}</span>
+                        <li key={i} className="text-gray-300">
+                           <strong className="block text-white">{p.title}</strong>
+                           <span className="text-gray-400">{p.desc}</span>
                         </li>
                      ))}
                   </ol>
                </div>
 
-               <aside className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                  <h4 className="font-bold mb-3">Quick Enquiry</h4>
-                  <p className="text-sm text-slate-600 mb-4">Have a question or need a quote for this service?</p>
+               <aside className="p-6 rounded-2xl bg-navy-light border border-neon-cyan/10">
+                  <h4 className="font-bold mb-3 text-white">Quick Enquiry</h4>
+                  <p className="text-sm text-gray-300 mb-4">Have a question or need a quote for this service?</p>
                   <button
                      onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                     className="w-full py-3 px-4 rounded-lg bg-slate-900 text-white font-semibold"
+                     className="w-full py-3 px-4 rounded-lg bg-neon-cyan text-navy-dark font-semibold hover:shadow-lg hover:shadow-neon-cyan/50"
                   >Contact About {service.title}</button>
                </aside>
             </section>
@@ -95,8 +89,6 @@ export default function ServiceDetail() {
                <Contact service={service.title} />
             </section>
          </main>
-
-         <Footer />
       </div>
    );
 }

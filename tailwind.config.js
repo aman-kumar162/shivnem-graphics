@@ -12,15 +12,24 @@ module.exports = {
       fontFamily: {
         heading: ['Clash Display', 'sans-serif'],
         body: ['Satoshi', 'sans-serif'],
+        serif: ['var(--font-playfair)', ...defaultTheme.fontFamily.serif],
         'neue-haas-text': ['var(--font-neue-haas-text)', ...defaultTheme.fontFamily.sans],
         'neue-haas-display': ['var(--font-neue-haas-display)', ...defaultTheme.fontFamily.sans],
         sans: ['FKGroteskNeue', 'Geist', 'Inter', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: '#0F172A',
-        accent: '#4F46E5',
-        secondary: '#9333EA',
-        light: '#F9FAFB',
+        primary: '#0A0E27', // Dark Navy
+        accent: '#E63946', // Red/Crimson
+        secondary: '#E63946', // Red/Crimson
+        light: '#FFFFFF',
+        'neon-cyan': '#E63946', // Changed to red
+        'neon-magenta': '#E63946', // Changed to red
+        'neon-pink': '#F14757', // Changed to bright red
+        'navy-dark': '#0A0E27',
+        'navy-light': '#1A1F3A',
+        'navy-accent': '#252D47',
+        'text-primary': '#FFFFFF',
+        'text-secondary': '#B8BCC8',
         'cream-50': 'var(--color-cream-50)',
         'cream-100': 'var(--color-cream-100)',
         'gray-200': 'var(--color-gray-200)',
@@ -35,9 +44,9 @@ module.exports = {
         'teal-600': 'var(--color-teal-600)',
         'teal-700': 'var(--color-teal-700)',
         'teal-800': 'var(--color-teal-800)',
-        'midnight-navy': '#0A1128',
-        'crimson-red': '#E31E24',
-        'bright-teal': '#00ADEF',
+        'midnight-navy': '#0A0E27',
+        'crimson-red': '#E63946',
+        'bright-teal': '#E63946',
         'off-white': '#F5F5F5',
       },
       fontSize: {

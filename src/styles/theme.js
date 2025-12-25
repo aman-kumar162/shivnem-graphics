@@ -1,54 +1,54 @@
 export const theme = {
   light: {
     primary: {
-      main: '#0D9488', // teal-600
-      light: '#14B8A6', // teal-500
-      dark: '#0F766E', // teal-700
+      main: '#E63946', // Red/Crimson
+      light: '#F14757', // Bright Red
+      dark: '#D62828', // Dark Red
       contrastText: '#FFFFFF'
     },
     secondary: {
-      main: '#6366F1', // indigo-500
-      light: '#818CF8', // indigo-400
-      dark: '#4F46E5', // indigo-600
+      main: '#E63946', // Red/Crimson
+      light: '#F14757', // Bright Red
+      dark: '#D62828', // Dark Red
       contrastText: '#FFFFFF'
     },
     background: {
-      default: '#FFFFFF',
-      paper: '#F8FAFC',
-      accent: '#F1F5F9'
+      default: '#0A0E27', // Dark Navy
+      paper: '#1A1F3A', // Slightly lighter navy
+      accent: '#252D47' // Accent navy
     },
     text: {
-      primary: '#1E293B',
-      secondary: '#475569',
-      disabled: '#94A3B8',
-      hint: '#CBD5E1'
+      primary: '#FFFFFF',
+      secondary: '#B8BCC8',
+      disabled: '#6B7184',
+      hint: '#4A505F'
     },
-    divider: '#E2E8F0'
+    divider: '#2D3547'
   },
   dark: {
     primary: {
-      main: '#14B8A6', // teal-500
-      light: '#2DD4BF', // teal-400
-      dark: '#0D9488', // teal-600
+      main: '#E63946', // Red/Crimson
+      light: '#F14757', // Bright Red
+      dark: '#D62828', // Dark Red
       contrastText: '#FFFFFF'
     },
     secondary: {
-      main: '#818CF8', // indigo-400
-      light: '#A5B4FC', // indigo-300
-      dark: '#6366F1', // indigo-500
+      main: '#E63946', // Red/Crimson
+      light: '#F14757', // Bright Red
+      dark: '#D62828', // Dark Red
       contrastText: '#FFFFFF'
     },
     background: {
-      default: '#0F172A',
-      paper: '#1E293B',
-      accent: '#334155'
+      default: '#0A0E27', // Dark Navy
+      paper: '#1A1F3A', // Slightly lighter navy
+      accent: '#252D47' // Accent navy
     },
     text: {
-      primary: '#F8FAFC',
-      secondary: '#E2E8F0',
-      disabled: '#94A3B8',
-      hint: '#CBD5E1'
+      primary: '#FFFFFF',
+      secondary: '#B8BCC8',
+      disabled: '#6B7184',
+      hint: '#4A505F'
     },
-    divider: '#334155'
+    divider: '#2D3547'
   }
 };

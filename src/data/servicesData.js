@@ -5,7 +5,7 @@ export const SERVICES_DATA = [
   {
     id: 'graphic-designing',
     title: 'Graphic Designing',
-    image: '/services/graphic-designing.svg',
+    image: '/servicesimages/graphicdesigning.png',
     shortDescription: 'Creative branding and visual assets for businesses.',
     description: 'Complete graphic design solutions including logos, stationery and marketing collateral that communicate your brand effectively.',
     subServices: [
@@ -26,27 +26,11 @@ export const SERVICES_DATA = [
       { step: 4, title: 'Final Delivery', desc: 'Provide print-ready files and source assets.' }
     ]
   },
-  {
-    id: 'web-software-designing',
-    title: 'Web / Software Designing',
-    image: '/services/web-software-designing.svg',
-    shortDescription: 'Designing modern websites and software interfaces.',
-    description: 'User-centred website and software interface design focused on usability, responsiveness and brand consistency.',
-    subServices: [
-      'Website Designing',
-      'Software Interface Designing'
-    ],
-    process: [
-      { step: 1, title: 'Discovery', desc: 'Understand requirements, users and flows.' },
-      { step: 2, title: 'Wireframes', desc: 'Structure layouts and user journeys.' },
-      { step: 3, title: 'Visual Design', desc: 'Create polished UI screens and assets.' },
-      { step: 4, title: 'Handoff', desc: 'Provide design specs and assets for development.' }
-    ]
-  },
+  
   {
     id: 'digital-printing',
     title: 'Digital Printing',
-    image: '/services/digital-printing.png',
+    image: '/servicesimages/digitalprinting.png',
     shortDescription: 'Fast, short-run printing for marketing and events.',
     description: 'On-demand digital printing for business cards, flyers, posters, stickers and certificates with quick turnarounds and accurate colour reproduction.',
     subServices: [
@@ -66,7 +50,7 @@ export const SERVICES_DATA = [
   {
     id: 'offset-printing',
     title: 'Offset Printing',
-    image: '/services/offset-printing.svg',
+    image: '/servicesimages/offset-printing.png',
     shortDescription: 'High-volume printing with consistent colour fidelity.',
     description: 'Economical and high-quality offset printing ideal for books, registers, letterheads, forms and catalogues at larger quantities.',
     subServices: [
@@ -84,9 +68,26 @@ export const SERVICES_DATA = [
     ]
   },
   {
+    id: 'web-software-designing',
+    title: 'Digital Solutions: Web & Software',
+    image: '/servicesimages/website-solution.png',
+    shortDescription: 'Designing modern websites and software interfaces.',
+    description: 'User-centred website and software interface design focused on usability, responsiveness and brand consistency.',
+    subServices: [
+      'Website Designing',
+      'Software Interface Designing'
+    ],
+    process: [
+      { step: 1, title: 'Discovery', desc: 'Understand requirements, users and flows.' },
+      { step: 2, title: 'Wireframes', desc: 'Structure layouts and user journeys.' },
+      { step: 3, title: 'Visual Design', desc: 'Create polished UI screens and assets.' },
+      { step: 4, title: 'Handoff', desc: 'Provide design specs and assets for development.' }
+    ]
+  },
+  {
     id: 'dtf-uv-transfer-stickers',
     title: 'DTF & UV Transfer Stickers',
-    image: '/services/dtf-uv-transfer-stickers.svg',
+    image: '/services-images/dtf-uv-transfer-stickers.svg',
     shortDescription: 'Direct-to-film and UV transfer sticker solutions.',
     description: 'Durable DTF and UV transfer stickers for apparel, products and packaging that offer vibrant colour and strong adhesion.',
     subServices: [
@@ -103,7 +104,7 @@ export const SERVICES_DATA = [
   {
     id: 'flex-printing',
     title: 'Flex Printing',
-    image: '/services/flex-vinyl.png',
+    image: '/services-images/flex-vinyl.png',
     shortDescription: 'Large-format printing for signs, hoardings and vinyls.',
     description: 'Weather-resistant flex and vinyl printing for banners, glow sign boards, hoardings and vehicle graphics with professional finishing.',
     subServices: [
@@ -122,7 +123,7 @@ export const SERVICES_DATA = [
   {
     id: 'eco-friendly-corn-sheet',
     title: 'Eco-Friendly Corn Sheet (Custom Size)',
-    image: '/services/eco-friendly-corn-sheet.svg',
+    image: '/services-images/eco-friendly-corn-sheet.svg',
     shortDescription: 'Sustainable corn-based sheet printing in custom sizes.',
     description: 'Eco-friendly corn sheet printing offering biodegradable alternatives for packaging and displays, available in custom sizes.',
     subServices: [
@@ -139,7 +140,7 @@ export const SERVICES_DATA = [
   {
     id: 'screen-printing',
     title: 'Screen Printing',
-    image: '/services/screen-printing.png',
+    image: '/services-images/screen-printing.png',
     shortDescription: 'Durable screen printing for textiles and products.',
     description: 'Screen printing for t-shirts, cloth, carry bags and other substrates using industry-standard inks and curing processes for long-lasting results.',
     subServices: [

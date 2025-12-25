@@ -87,7 +87,7 @@ const Loader = () => {
           <div className="loader-progress h-full w-0 bg-gradient-to-r from-cyan-400 to-blue-500 transform origin-left shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
         </div>
         <div className="mt-6 text-sm flex justify-center space-x-4 font-medium tracking-wide text-blue-200/60">
-          <span>EST. 2010</span>
+          <span>EST. 2009</span>
           <span>•</span>
           <span>AMBALA CANTT</span>
         </div>

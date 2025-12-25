@@ -3,7 +3,7 @@ import { metadata } from './metadata';
 import MouseTrail from '../components/shared/MouseTrail';
 import Footer from '../components/layout/Footer';
 import Navbar from '../components/layout/Navbar';
-import { Space_Grotesk, Inter } from 'next/font/google';
+import { Space_Grotesk, Inter, Playfair_Display } from 'next/font/google';
 import "./globals.css";
 import "../styles/effects.css";
 
@@ -19,9 +19,15 @@ const inter = Inter({
   display: 'swap',
 });
 
+const playfair = Playfair_Display({ 
+  subsets: ['latin'], 
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`scroll-smooth ${spaceGrotesk.variable} ${inter.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`scroll-smooth ${spaceGrotesk.variable} ${inter.variable} ${playfair.variable}`}>
       <body className="antialiased min-h-screen transition-colors duration-300 font-sans">
         <ThemeProvider>
           <div className="relative">

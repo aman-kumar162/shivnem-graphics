@@ -274,3 +274,64 @@
     position: relative;
     z-index: 40;
 }
+
+/* =========================
+   GOOGLE REVIEWS SCROLLING BANNER
+   ========================= */
+
+/* Container with gradient overlays */
+.reviews-banner-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Gradient fade overlays */
+.reviews-banner-container::before,
+.reviews-banner-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.reviews-banner-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgb(15, 23, 42) 0%, transparent 100%);
+}
+
+.reviews-banner-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgb(15, 23, 42) 0%, transparent 100%);
+}
+
+/* Scrolling track */
+.reviews-scroll-track {
+    display: flex;
+    gap: 1.5rem;
+    animation: scroll-left 40s linear infinite;
+    will-change: transform;
+}
+
+.reviews-scroll-track:hover {
+    animation-play-state: paused;
+}
+
+/* Individual review cards */
+.review-card {
+    flex-shrink: 0;
+    width: 350px;
+}
+
+/* Keyframe animation for infinite scroll */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

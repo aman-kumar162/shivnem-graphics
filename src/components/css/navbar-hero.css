@@ -46,8 +46,8 @@ nav.py-4 {
 /* Hover glow */
 .nav-logo:hover {
     transform: translateY(-3px) scale(1.03) !important;
-    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.25) !important;
-    border-color: rgba(94, 234, 212, 0.25) !important;
+    box-shadow: 0 12px 30px rgba(0, 217, 255, 0.35) !important;
+    border-color: rgba(0, 217, 255, 0.35) !important;
 }
 
 /* Logo glow ring */
@@ -55,18 +55,18 @@ nav.py-4 {
     padding: 6px !important;
     border-radius: 14px !important;
     background: radial-gradient(circle at 40% 40%,
-            rgba(194, 24, 91, 0.65),
-            rgba(230, 81, 0, 0.35),
+            rgba(0, 217, 255, 0.65),
+            rgba(255, 0, 110, 0.35),
             transparent) !important;
-    box-shadow: 0 0 20px rgba(194, 24, 91, 0.55),
-        0 0 40px rgba(230, 81, 0, 0.25) !important;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.55),
+        0 0 40px rgba(255, 0, 110, 0.25) !important;
     transition: transform 300ms ease, box-shadow 300ms ease !important;
 }
 
 .nav-logo:hover .logo-wrap {
     transform: scale(1.06) rotate(2deg) !important;
-    box-shadow: 0 0 30px rgba(194, 24, 91, 0.75),
-        0 0 60px rgba(230, 81, 0, 0.4) !important;
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.75),
+        0 0 60px rgba(255, 0, 110, 0.4) !important;
 }
 
 /* Brand title */
@@ -84,8 +84,9 @@ nav.py-4 {
 .brand-tag {
     font-size: 0.70rem !important;
     font-weight: 600 !important;
-    color: #67e8f9 !important;
+    color: #00D9FF !important;
     opacity: 0.9 !important;
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
 }
 
 /* Shrink on scroll */
@@ -116,7 +117,7 @@ nav.shadow-2xl .nav-logo {
     bottom: 4px;
     height: 3px;
     border-radius: 6px;
-    background: linear-gradient(90deg, #C2185B, #E65100);
+    background: linear-gradient(90deg, #00D9FF, #FF006E);
     transform: scaleX(0);
     opacity: 0;
     transition: transform 260ms cubic-bezier(.2, .9, .3, 1), opacity 260ms ease;
@@ -126,12 +127,14 @@ nav.shadow-2xl .nav-logo {
 .nav-menu li a:hover::after {
     transform: scaleX(1);
     opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
 }
 
 /* Hover movement */
 .nav-menu li a:hover {
     transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(0, 217, 255, 0.1);
+    color: #00D9FF !important;
 }
 
 /* Active underline */
@@ -139,6 +142,7 @@ nav.shadow-2xl .nav-logo {
     transform: scaleX(1);
     opacity: 1;
     height: 4px !important;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
 }
 
 /* ---------------------------------------------------------------------
@@ -193,11 +197,12 @@ nav.shadow-2xl .nav-logo {
    --------------------------------------------------------------------- */
 button.relative.px-6.py-2 {
     transition: transform 260ms ease, box-shadow 260ms ease !important;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.4) !important;
 }
 
 button.relative.px-6.py-2:hover {
     transform: translateY(-3px) !important;
-    box-shadow: 0 18px 45px rgba(194, 24, 91, 0.3) !important;
+    box-shadow: 0 18px 45px rgba(0, 217, 255, 0.5) !important;
 }
 
 /* ---------------------------------------------------------------------

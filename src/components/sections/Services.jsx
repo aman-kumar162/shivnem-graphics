@@ -46,11 +46,11 @@ export default function Services() {
   const FEATURED_SERVICES = SERVICES_DATA.slice(0, 6);
 
   return (
-    <div ref={containerRef} className="py-24 relative overflow-visible font-sans bg-slate-50" id="services">
+    <div ref={containerRef} className="py-24 relative overflow-visible font-sans bg-navy-dark" id="services">
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-100/50 rounded-full blur-[100px] mix-blend-multiply opacity-70 animate-pulse" />
-         <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-purple-100/50 rounded-full blur-[100px] mix-blend-multiply opacity-70 animate-pulse" style={{ animationDelay: '2s' }} />
+         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-neon-cyan/10 rounded-full blur-[100px] mix-blend-multiply opacity-30 animate-pulse" />
+         <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-neon-magenta/10 rounded-full blur-[100px] mix-blend-multiply opacity-30 animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="container mx-auto px-4 relative z-10 grid lg:grid-cols-12 gap-12 items-start">
@@ -58,67 +58,67 @@ export default function Services() {
         {/* Header Section (Left Sticky-ish) */}
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32 relative group" ref={titleRef}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-blue-100 text-blue-600 text-sm font-bold mb-8 uppercase tracking-wider shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan text-sm font-bold mb-8 uppercase tracking-wider shadow-sm">
                 <Sparkles className="w-4 h-4" />
                 World Class Quality
             </div>
             
-            <h2 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight font-display leading-[1.1]">
+            <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight font-display leading-[1.1]">
                 We Bring Your <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-neon-pink to-neon-magenta">
                     Vision to Life
                 </span>
             </h2>
             
-            <p className="text-lg text-slate-600 leading-relaxed font-light mb-8 max-w-lg">
+            <p className="text-lg text-gray-300 leading-relaxed font-light mb-8 max-w-lg">
                 From high-speed digital prints to luxurious business cards, our offset and digital services set the standard for excellence.
             </p>
 
             <Link 
               href="/services" 
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-blue-600 transition-all shadow-lg hover:shadow-blue-500/30 group"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-neon-cyan text-navy-dark font-bold hover:shadow-lg hover:shadow-neon-cyan/50 transition-all shadow-lg group"
             >
               Explore All Services
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
 
             {/* Trust Badges */}
-            <div className="mt-12 flex gap-6 pt-12 border-t border-slate-200">
+            <div className="mt-12 flex gap-6 pt-12 border-t border-neon-cyan/10">
                 <div className="flex flex-col">
-                    <span className="text-3xl font-bold text-slate-900">2K+</span>
-                    <span className="text-sm text-slate-500 font-medium">Happy Clients</span>
+                    <span className="text-3xl font-bold text-white">2K+</span>
+                    <span className="text-sm text-gray-300 font-medium">Happy Clients</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-3xl font-bold text-slate-900">24h</span>
-                    <span className="text-sm text-slate-500 font-medium">Fast Delivery</span>
+                    <span className="text-3xl font-bold text-white">24h</span>
+                    <span className="text-sm text-gray-300 font-medium">Fast Delivery</span>
                 </div>
             </div>
 
             {/* Hover full-services panel (large screens) - drops down beneath the header */}
             <div className="pointer-events-none opacity-0 translate-y-[-6px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full mt-4 w-full hidden lg:block z-50">
               <div className="mx-auto max-w-[980px] bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 pointer-events-auto">
-                <h4 className="text-lg font-bold mb-4">All Services</h4>
+                <h4 className="text-lg font-bold mb-4 text-white">All Services</h4>
                 <div className="grid grid-cols-4 gap-4">
                   {SERVICES_DATA.map((svc) => (
                     <Link
                       key={svc.id}
                       href={`/services/${svc.id}`}
-                      className="block p-4 rounded-[1.5rem] bg-white border border-slate-100 hover:shadow-2xl transition-shadow duration-200"
+                      className="block p-4 rounded-[1.5rem] bg-navy-light border border-neon-cyan/10 hover:border-neon-cyan/40 hover:shadow-lg hover:shadow-neon-cyan/20 transition-all duration-200"
                     >
-                      <div className="w-full h-36 mb-4 bg-slate-100 rounded-xl overflow-hidden flex items-center justify-center">
+                      <div className="w-full h-36 mb-4 bg-navy-accent rounded-xl overflow-hidden flex items-center justify-center">
                         {svc.image ? (
                           <Image src={svc.image} alt={svc.title} width={480} height={240} className="object-cover w-full h-full" />
                         ) : (
-                          <span className="text-slate-400 text-sm">Image</span>
+                          <span className="text-gray-500 text-sm">Image</span>
                         )}
                       </div>
                       <div className="text-center">
-                        <div className="font-semibold text-slate-900">{svc.title}</div>
-                        <div className="text-xs text-slate-500 mt-2 mb-1">{svc.shortDescription}</div>
+                        <div className="font-semibold text-white">{svc.title}</div>
+                        <div className="text-xs text-gray-400 mt-2 mb-1">{svc.shortDescription}</div>
                         {svc.subServices && svc.subServices.length > 0 && (
                           <div className="flex flex-wrap justify-center gap-2 mt-2">
                             {svc.subServices.slice(0,4).map((sub, i) => (
-                              <span key={i} className="text-xs px-2 py-1 bg-slate-100 rounded-full text-slate-600 border border-slate-200">{sub}</span>
+                              <span key={i} className="text-xs px-2 py-1 bg-navy-accent/50 rounded-full text-neon-cyan border border-neon-cyan/20">{sub}</span>
                             ))}
                           </div>
                         )}

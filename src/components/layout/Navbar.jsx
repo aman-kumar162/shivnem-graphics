@@ -4,19 +4,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useTheme } from '../../context/ThemeContext';
 import { SERVICES_DATA } from '../../data/servicesData';
 import Image from 'next/image';
 import '../css/navbar-hero.css'
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { isDark } = useTheme();
   const navRef = useRef(null);
   const menuRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('about');
+
+  // Navigation items for route-based navigation
+  const navItems = [
+    { label: 'Work', href: '/work' },
+    { label: 'Services', href: '/services' },
+    { label: 'About', href: '/about' },
+    { label: 'Blog', href: '/blog' },
+  ];
 
   useEffect(() => {
     if (!navRef.current) return;
@@ -47,25 +52,12 @@ const Navbar = () => {
     const handleScroll = () => {
       if (typeof window !== 'undefined') {
         setHasScrolled(window.scrollY > 100);
-        
-        // Detect active section
-        const sections = ['about', 'services', 'products', 'portfolio', 'process', 'team', 'contact'];
-        for (const section of sections) {
-          const element = document.getElementById(section);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top <= 100 && rect.bottom >= 100) {
-              setActiveSection(section);
-              break;
-            }
-          }
-        }
       }
     };
 
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', handleScroll);
-      handleScroll(); // Initial check
+      handleScroll();
       return () => window.removeEventListener('scroll', handleScroll);
     }
   }, []);
@@ -77,144 +69,72 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 max-h-[100px] left-0 w-full z-[999] transition-all duration-300 backdrop-blur-sm ${
-        isDark ? 'bg-midnight-navy/95' : 'bg-[#e7d9cc]/95'
-      } ${hasScrolled ? 'shadow-2xl py-3' : 'py-4'}`}
+      className={`fixed top-0 max-h-[100px] left-0 w-full z-[999] transition-all duration-300 backdrop-blur-md bg-gradient-to-r from-navy-accent via-navy-light to-navy-accent border-b border-neon-cyan/20 ${hasScrolled ? 'shadow-2xl shadow-neon-cyan/30 py-3' : 'py-4'}`}
     >
       <div className="container mx-auto px-7 max-w-[1300px] flex items-center justify-between">
-          <div 
-            className="flex items-center gap-3 "
-          >
-          <img src="/sg.png" alt="Shivnem Graphics Logo" className="w-10 h-10 sm:w-12 sm:h-12" />
-          <div className="flex flex-col" style={{ lineHeight: '1.2' }}>
-            <h2 className={`text-base sm:text-lg font-bold ${isDark ? 'text-white' : 'text-[#4a4e4d]'}`} style={{ marginBottom: '2px' }}>Shivnem Graphics</h2>
+          <Link href="/">
+            <div 
+              className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+            >
+            <img src="/sg.png" alt="Shivnem Graphics Logo" className="w-10 h-10 sm:w-12 sm:h-12" />
+            <div className="flex flex-col" style={{ lineHeight: '1.2' }}>
+              <h2 className="text-base sm:text-lg font-bold text-white" style={{ marginBottom: '2px' }}>Shivnem Graphics</h2>
             <span 
-              className="text-xs font-semibold bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent" 
-              style={{ textShadow: '0 2px 10px rgba(100, 181, 246, 0.4)' }}
+              className="text-xs font-semibold bg-gradient-to-r from-neon-cyan via-neon-pink to-neon-magenta bg-clip-text text-transparent" 
+              style={{ textShadow: '0 2px 10px rgba(0, 217, 255, 0.4)' }}
             >
               Committed to Excellence
             </span>
           </div>
-      </div>
+          </div>
+          </Link>
         
         <ul
           ref={menuRef}
           className={`nav-menu md:flex items-center space-x-1 lg:space-x-2 ${
             isMenuOpen
-                ? `absolute top-full left-0 w-full ${isDark ? 'bg-midnight-navy' : 'bg-[#e7d9cc]'} shadow-2xl py-4 px-4 space-y-3 md:space-y-0 md:space-x-1 mt-0.5`
+                ? `absolute top-full left-0 w-full bg-gradient-to-r from-navy-accent via-navy-light to-navy-accent shadow-2xl py-4 px-4 space-y-3 md:space-y-0 md:space-x-1 mt-0.5 border-b border-neon-cyan/20`
                 : 'hidden md:flex'
           }`}
         >
-          {['about', 'services', 'products', 'portfolio', 'process', 'team', 'contact'].map((item) => (
-            <li key={item} className={item === 'services' ? 'relative' : ''}>
-              {item === 'about' ? (
-                <Link
-                  href="/about"
-                  className={`px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium ${
-                    isDark 
-                      ? `text-off-white hover:text-bright-teal ${pathname === '/about' ? 'text-bright-teal' : ''}`
-                      : `text-[#4a4e4d] hover:text-bright-teal ${pathname === '/about' ? 'text-bright-teal font-bold' : ''}`
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item}
-                </Link>
-              ) : item === 'services' ? (
-                <div className="group relative">
-                  <a
-                    href={`#${item}`}
-                    className={`px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium ${
-                      isDark
-                        ? `text-off-white hover:text-bright-teal ${activeSection === item && pathname === '/' ? 'text-bright-teal' : ''}`
-                        : `text-[#4a4e4d] hover:text-bright-teal ${activeSection === item && pathname === '/' ? 'text-bright-teal font-bold' : ''}`
-                    }`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (pathname === '/') {
-                        document.getElementById(item)?.scrollIntoView({ behavior: 'smooth' });
-                        setActiveSection(item);
-                      } else {
-                        window.location.href = `/#${item}`;
-                      }
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    {item}
-                  </a>
-
-                  {/* Desktop hover dropdown */}
-                  <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-full mt-3 z-50 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 opacity-0 transition-all duration-200">
-                    <div className="mx-auto w-[980px] bg-white rounded-2xl shadow-2xl border border-slate-200 p-4">
-                      <div className="grid grid-cols-5 gap-3">
-                        {SERVICES_DATA.map((svc) => (
-                          <Link key={svc.id} href={`/services/${svc.id}`} className="block p-3 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-100 transition-colors">
-                            <div className="h-28 mb-3 bg-slate-100 rounded-md overflow-hidden flex items-center justify-center">
-                              {svc.image ? (
-                                <Image src={svc.image} alt={svc.title} width={420} height={180} className="object-cover w-full h-full" />
-                              ) : (
-                                <div className="text-slate-400">Image</div>
-                              )}
-                            </div>
-                            <div className="font-medium text-sm text-slate-900">{svc.title}</div>
-                            <div className="text-xs text-slate-500 mt-1 line-clamp-2">{svc.shortDescription}</div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <a
-                  href={`#${item}`}
-                  className={`px-3 py-2 rounded-lg transition-all capitalize text-sm lg:text-base font-medium ${
-                    isDark
-                      ? `text-off-white hover:text-bright-teal ${activeSection === item && pathname === '/' ? 'text-bright-teal' : ''}`
-                      : `text-[#4a4e4d] hover:text-bright-teal ${activeSection === item && pathname === '/' ? 'text-bright-teal font-bold' : ''}`
-                  }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (pathname === '/') {
-                      document.getElementById(item)?.scrollIntoView({ behavior: 'smooth' });
-                      setActiveSection(item);
-                    } else {
-                      window.location.href = `/#${item}`;
-                    }
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  {item}
-                </a>
-              )}
+          {navItems.map((item) => (
+            <li key={item.href} className="relative">
+              <Link
+                href={item.href}
+                className={`px-3 py-2 rounded-lg transition-all text-sm lg:text-base font-medium ${
+                  pathname === item.href 
+                    ? 'text-neon-cyan' 
+                    : 'text-gray-200 hover:text-neon-cyan'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
             </li>
           ))}
         </ul>
 
         <div className="flex items-center space-x-2 sm:space-x-4">
-          <button 
-            className={`hidden md:block relative px-6 py-2 rounded-lg font-semibold text-white overflow-hidden transition-all duration-300 group shadow-lg hover:shadow-xl ${
-              isDark ? 'bg-crimson-red' : 'bg-gradient-to-r from-crimson-red to-orange-500'
-            }`}
-
-            onClick={() => {
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            onMouseEnter={(e) => {
-              gsap.to(e.currentTarget, { scale: 1.05, duration: 0.3, ease: 'back.out(1.7)' });
-              gsap.to(e.currentTarget, { boxShadow: '0 0 20px rgba(194, 24, 91, 0.6), 0 0 40px rgba(230, 81, 0, 0.4)', duration: 0.3 });
-            }}
-            onMouseLeave={(e) => {
-              gsap.to(e.currentTarget, { scale: 1, duration: 0.3, ease: 'power2.out' });
-              gsap.to(e.currentTarget, { boxShadow: '0 4px 15px rgba(194, 24, 91, 0.4)', duration: 0.3 });
-            }}
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Get Quote
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </span>
-            <span className="absolute inset-0 bg-gradient-to-r from-brand-purple to-brand-magenta opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </button>
+          <Link href="/contact">
+            <button 
+              className="hidden md:block relative px-6 py-2 rounded-lg font-semibold text-white overflow-hidden transition-all duration-300 group shadow-lg hover:shadow-neon-cyan/50 bg-neon-cyan text-navy-dark"
+              onMouseEnter={(e) => {
+                gsap.to(e.currentTarget, { scale: 1.05, duration: 0.3, ease: 'back.out(1.7)' });
+                gsap.to(e.currentTarget, { boxShadow: '0 0 20px rgba(0, 217, 255, 0.8), 0 0 40px rgba(0, 217, 255, 0.4)', duration: 0.3 });
+              }}
+              onMouseLeave={(e) => {
+                gsap.to(e.currentTarget, { scale: 1, duration: 0.3, ease: 'power2.out' });
+                gsap.to(e.currentTarget, { boxShadow: '0 4px 15px rgba(0, 217, 255, 0.4)', duration: 0.3 });
+              }}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Contact
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
+            </button>
+          </Link>
 
           <button
             className="md:hidden relative w-6 h-6 flex flex-col justify-center"
@@ -222,15 +142,9 @@ const Navbar = () => {
             aria-label="Toggle menu"
           >
             <div className={`hamburger-icon ${isMenuOpen ? 'active' : ''}`}>
-              <span className={`block w-6 h-0.5 transition-all duration-300 ${isDark ? 'bg-white' : 'bg-[#4a4e4d]'} ${
-                isMenuOpen ? 'rotate-45 translate-y-1.5' : ''
-              }`} />
-              <span className={`block w-6 h-0.5 ${isDark ? 'bg-white' : 'bg-[#4a4e4d]'} my-1.5 transition-all duration-300 ${
-                isMenuOpen ? 'opacity-0' : ''
-              }`} />
-              <span className={`block w-6 h-0.5 transition-all duration-300 ${isDark ? 'bg-white' : 'bg-[#4a4e4d]'} ${
-                isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
-              }`} />
+              <span className="block w-6 h-0.5 transition-all duration-300 bg-white" />
+              <span className="block w-6 h-0.5 bg-white my-1.5 transition-all duration-300" />
+              <span className="block w-6 h-0.5 transition-all duration-300 bg-white" />
             </div>
           </button>
         </div>
